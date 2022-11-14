@@ -1,5 +1,8 @@
 ## Erreurs module ##
 
+## Utiliser le module inspect qui permet d'introspecter le code et permet notamment de
+# recuperer le numero de la ligne en cours d'execution##
+
 ## Erreurs générales ##
 
 # Erreur 1 : Mauvais type de variable 
@@ -32,7 +35,16 @@ def Error_6():
 
 ## Erreurs partie maths.py ##
 
-def Error_ma_1():
+def Error_ma_1(clas,el1,el2=None) :
+    if el2 != None :
+        if isinstance(el1,clas) and isinstance(el2,clas) :
+            return True
+    else :
+        if isinstance(el1,clas) :
+            return True
+    print("Erreur_maths_1 : Cette action necessite un(des) objet de la classe : "+str(clas))
+
+def Error_ma_6():
     print("Erreur_maths_1 : Mauvaises dimensions")
 
 def Error_ma_2(ty=None):

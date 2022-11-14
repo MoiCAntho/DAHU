@@ -82,7 +82,7 @@ class Matrice :
                         mat[i][j] = self[i][j] + autre[i][j]
                 return mat
             else :
-                er.Error_ma_1()
+                er.Error_ma_6()
         else :
             er.Error_ma_2(ty="Matrice")
 
@@ -92,7 +92,7 @@ class Matrice :
                 matreturn = self + autre
                 return matreturn
             else :
-                er.Error_ma_1()
+                er.Error_ma_6()
         else :
             er.Error_ma_2(ty="Matrice")
     
@@ -105,7 +105,7 @@ class Matrice :
                         mat[i][j] = self[i][j] - autre[i][j]
                 return mat
             else :
-                er.Error_ma_1()
+                er.Error_ma_6()
         else :
             er.Error_ma_2(ty="Matrice")
     
@@ -130,7 +130,7 @@ class Matrice :
                     mat[i][j] = self[i][j]*autre
             return mat
         else :
-            er.Error_1()
+            er.Error_6()
 
     def __imul__(self,autre) : #Utilisation de l'operateur *= !
         return self * autre
@@ -323,8 +323,14 @@ class Vecteur(Matrice) :
     
 
 
-    def prodvec(self,autre) :
-        pass
+    def prodvec(self,autre) : #Produit vectoriel de deux vecteurs de R3 (faire les filtres) !
+        if er.Error_ma_1(Vecteur,self,autre) :
+            if len(self) == self(autre) == 3 :
+                vec = Vecteur(3)
+                vec[0] = self[1]*autre[2] - self[2]*autre[1]
+                vec[1] = self[2]*autre[0] - self[0]*autre[2]
+                vec[2] = self[0]*autre[1] - self[1]*autre[0]
+            return vec
 
 class Complexe :
     def __init__(self,a = 0,b = 0) : #Initialise un nombre complexe (Faire filtres) !
