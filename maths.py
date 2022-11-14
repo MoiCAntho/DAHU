@@ -34,7 +34,7 @@ class Expr :
         re = a.split(el)
         return a
 
-## ou utilisation de simpy
+## ou utilisation de simpy, integration XCas ?
 
 ## Definition d'objets généraux ##
 
@@ -211,14 +211,14 @@ class Matrice :
             if i == ligne_1-1 :
                 for j in range(n) :
                     l1.append(mat[i][j])
-            elif i == ligne_2 :
+            elif i == ligne_2-1 :
                 for j in range(n) :
                     l2.append(mat[i][j])
         for i in range(n) :
             if i == ligne_1-1 :
                 for j in range(n) :
                     mat[i][j] = l2[j]
-            elif i == ligne_2 :
+            elif i == ligne_2-1 :
                 for j in range(n) :
                     mat[i][j] = l1[j]
         return mat
@@ -232,7 +232,7 @@ class Matrice :
         return mat
 
     def mel_transvection_l(ligne_1,ligne_2,valeur,n) : #Matrice elementaire de transvections de 2 lignes (interversion l1 et l2 avec l1 = valeur*l1) (faire les filtres) !
-        mat = Matrice.mel_permutation_l(ligne_1,ligne_2,n)*Matrice.mel_dilatation_l(ligne_1,valeur,n)
+        mat = Matrice.mel_permutation_l(ligne_1,ligne_2,n) * Matrice.mel_dilatation_l(ligne_1,valeur,n)
         return mat
 
     ## Methodes ##
