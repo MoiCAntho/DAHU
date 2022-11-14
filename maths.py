@@ -305,6 +305,7 @@ class Vecteur(Matrice) :
 
     def __len__(self) :
         return self.n
+
     def __rmul__(self, autre): #Produit par un réel et produit scalaire !
         if isinstance(autre,int) :
             vec = Vecteur(len(self))
