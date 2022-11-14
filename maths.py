@@ -269,7 +269,7 @@ class Matrice :
                 det = self[0][0]*self[1][1] - self[0][1]*self[1][0]
                 return det
             else :
-                a = self.pivots_gauss()
+                a = self.pivots()
                 det = 1
                 for i in range(a[0].dim()[0]) :
                     for j in range(a[0].dim()[1]) :
@@ -293,6 +293,7 @@ class Matrice :
 class Vecteur(Matrice) :
 
     def __init__(self,n) : #Initialisation d'un vecteur (genere le vecteur nul)
+        self.l = n
         vec = super().__init__(n,1)
         self.Vecteur = vec
     
@@ -302,8 +303,25 @@ class Vecteur(Matrice) :
     def __setitem__(self, index, valeur):
         self[index] = valeur
 
+    def __len__(self) :
+        return self.n
+    def __rmul__(self, autre): #Produit par un réel et produit scalaire !
+        if isinstance(autre,int) :
+            vec = Vecteur(len(self))
+            for i in range(len(self)) :
+                vec[i] = autre*self[i]
+            return vec
+        if isinstance(autre,Vecteur) :
+            if len(self) == len(autre) :
+                vec = Vecteur(len(self))
+                for i in range(len(self)) :
+                    vec[i] = autre[i]*self[i]
+                return vec
+
     ## Formules et opérations sur les vecteurs ##
     
+
+
     def prodvec(self,autre) :
         pass
 
