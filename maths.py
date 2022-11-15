@@ -208,7 +208,7 @@ class Matrice :
         else :
             er.Error_ma_5()
 
-    def mel_permutation_l(ligne_1,ligne_2,n) : #Matrice elementaire de permutation de deux lignes (faire les filtres) !
+    def mel_permutation_l(ligne_1,ligne_2,n) : #Matrice elementaire de permutation de deux lignes (faire les filtres)
         mat = Matrice.matriceid(n)
         l1 = []
         l2 = []
@@ -221,14 +221,12 @@ class Matrice :
                     l2.append(mat[i][j])
         for i in range(n) :
             if i == ligne_1-1 :
-                for j in range(n) :
-                    mat[i][j] = l2[j]
+                    mat[i] = l2
             elif i == ligne_2-1 :
-                for j in range(n) :
-                    mat[i][j] = l1[j]
+                    mat[i] = l1
         return mat
 
-    def mel_dilatation_l(ligne,valeur,n) : #Matrice elementaire de dilatation d'une ligne (faire les filtres) !
+    def mel_dilatation_l(ligne,valeur,n) : #Matrice elementaire de dilatation d'une ligne (faire les filtres)
         mat = Matrice.matriceid(n)
         for i in range(n) :
             if i == ligne-1 :
