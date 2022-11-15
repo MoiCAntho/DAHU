@@ -1,6 +1,7 @@
 ## Erreurs module ##
 
-## Utiliser le module inspect qui permet d'introspecter le code et permet notamment de
+## -Refaire entièrement la gestion d'eereurs on y implementant les filtres
+# -Utiliser le module inspect qui permet d'introspecter le code et permet notamment de
 # recuperer le numero de la ligne en cours d'execution##
 
 ## Erreurs générales ##

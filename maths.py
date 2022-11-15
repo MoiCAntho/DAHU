@@ -112,14 +112,15 @@ class Matrice :
     def __isub__(self,autre) : #Utilisation de l'operateur -= !
         return self - autre
 
-    def __rmul__(self,autre) : #Multiplications
+    def __mul__(self,autre) : #Multiplications (refaire les filtres)
         if isinstance(autre,Matrice) : #Matrice par matrice
             if self.nbc == autre.nbl :
+                n = self.nbc
                 mat = Matrice(self.nbl,autre.nbc)
                 for i in range(self.nbl) :
                     for j in range(autre.nbc) :
                         x = 0
-                        for k in range(autre.nbc) :
+                        for k in range(n) :
                             x += self[i][k] * autre[k][j]
                         mat[i][j] = x
                 return mat
@@ -127,10 +128,14 @@ class Matrice :
             mat = Matrice(self.nbl,self.nbc)
             for i in range(self.nbl) :
                 for j in range(self.nbc) :
-                    mat[i][j] = self[i][j]*autre
+                    mat[i][j] = self[i][j]*float(autre)
             return mat
         else :
             er.Error_6()
+
+    def __rmul__(self,autre) : #Commutativite de la multiplication par un scalaire faire les filtres
+        if isinstance(autre,int) :
+            return self*autre
 
     def __imul__(self,autre) : #Utilisation de l'operateur *= !
         return self * autre

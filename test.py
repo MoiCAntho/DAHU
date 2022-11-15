@@ -9,10 +9,8 @@ import phy as p
 # f=importdata("C:\\Users\\segur\\Documents\\MEGA\\Université\\MEC204-Mécanique du point II\\TP\\TP 3 Ressorts frottements secs\\données.csv")
 # print(f)
 
-d = ma.Matrice.matriceel([[3,6,3,3],[9,1,0,10],[9,10,1,1],[2,5,9,9]])
+d = ma.Matrice.matriceel([[3,6,3,3],[9,1,0,10],[9,10,1,1]])
 a = ma.Matrice.matrice123(3,3)
-# c = ma.Matrice.mel_transvection_l(1,2,5,3)
+c = ma.Matrice.mel_transvection_l(1,2,5,3)
 
-print(d)
-print(a)
-print(a*d)
+print(a.det())
