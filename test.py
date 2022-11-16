@@ -11,6 +11,6 @@ import phy as p
 
 d = ma.Matrice.matriceel([[3,6,3,3],[9,1,0,10],[9,10,1,1]])
 a = ma.Matrice.matrice123(3,3)
-c = ma.Matrice.mel_transvection_l(1,2,5,3)
+c = ma.Matrice.mel_transvection_l(2,5,10,6)
 
-print(a*d)
+print(c)
