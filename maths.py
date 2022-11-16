@@ -224,6 +224,7 @@ class Matrice :
                     mat[i] = l2
             elif i == ligne_2-1 :
                     mat[i] = l1
+                    l1 = l1
         return mat
 
     def mel_dilatation_l(ligne,valeur,n) : #Matrice elementaire de dilatation d'une ligne (faire les filtres)
@@ -272,13 +273,16 @@ class Matrice :
                 det = self[0][0]*self[1][1] - self[0][1]*self[1][0]
                 return det
             else :
-                a = self.pivots()
                 det = 1
-                for i in range(a[0].dim()[0]) :
-                    for j in range(a[0].dim()[1]) :
-                        if i == j :
-                            det *= a[0][i][j] 
-                return det*((-1)**a[1])
+
+    def triangsup(self) : #finir et faire les autres matrices elementaires pour col et ligne/colo
+        nbl = self.nbl
+        nbc = self.nbc
+        for col in range(nbc) :
+            lgn = Matrice.LignePlusGrand(self,col)
+            if lgn != col :
+                self *= Matrice.mel_permutation_l()
+        pass 
 
     def comatrice(self) : #Retourne la comatrice d'une matrice (A faire) !
         pass
@@ -292,6 +296,19 @@ class Matrice :
     def gauss_jordan(self) : #Met la matrice sous forme echelon reduite (A faire) !
         n = self.dim()
         pass
+
+    ## Fonctions ##
+
+    def LignePlusGrand(matrice,col) : #Renvoie le numero de la ligne contenant le plus grand coefficient d'une colonne
+        nbl = matrice.dim()[0]
+        plusgrand = Fonction.abs(matrice[col][col])
+        lignePlusGrand = col
+        for ln in range(col+1,nbl) :
+            if Fonction.abs(matrice[ln][col]) > plusgrand :
+                plusgrand = Fonction.abs(matrice[ln][col])
+                lignePlusGrand = ln
+        return lignePlusGrand
+
 
 class Vecteur(Matrice) :
 
@@ -398,6 +415,12 @@ class Fonction :
 
     def sin() :
         pass
+
+    def abs(val = None) : #Fonction valeur absolue faire filtres
+        if val != None :
+            a = val**2
+            b = Fonction.sqrt(a)
+            return b
 
 class Graph :
     def __init__(self) :
