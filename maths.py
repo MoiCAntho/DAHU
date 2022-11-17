@@ -226,14 +226,14 @@ class Matrice :
         mat = Matrice.mel_permutation_l(ligne_1,ligne_2,n) * Matrice.mel_dilatation_l(ligne_1,valeur,n)
         return mat
 
-    def mel_permutation_c(colonne_1,colonne_2,n) : #A faire
-        pass
+    # def mel_permutation_c(colonne_1,colonne_2,n) : #A faire
+    #     pass
     
-    def mel_dilatation_c(colonne,valeur,n) :
-        pass
+    # def mel_dilatation_c(colonne,valeur,n) :
+    #     pass
 
-    def mel_transvection_c(colonne_1,colonne_2,valeur,n) :
-        pass
+    # def mel_transvection_c(colonne_1,colonne_2,valeur,n) :
+    #     pass
 
 
     ## Methodes ##
@@ -271,6 +271,8 @@ class Matrice :
                 return det
             else :
                 det = 1
+                for col in range(self.nbc) :
+                    pass
 
     def triangsup(self) : #finir et faire les autres matrices elementaires pour col et ligne/colo
         nbl = self.nbl
@@ -338,6 +340,8 @@ class Vecteur(Matrice) :
 
     ## Formules et opérations sur les vecteurs ##
     
+    def VecPts(*pt) :
+        pass 
 
 
     def prodvec(self,autre) : #Produit vectoriel de deux vecteurs de R3 (faire les filtres) !

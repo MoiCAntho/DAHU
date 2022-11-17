@@ -47,7 +47,8 @@ class Torseur :
 ## Formules diverses ##
 
     def Transport(self) :
-        pass
+        if self.ty == "Force" :
+            pass
 
 # Faire les filtres pour diverses vérifications dans les fonctions (rajouter les erreurs, s'il faut)
 
