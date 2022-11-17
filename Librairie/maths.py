@@ -2,6 +2,7 @@
 
 ## Contient les algorithmes de calcul numerique et egalement un CAS ##
 import math
+import giacpy
 import erreurs as er
 import random as r
 
