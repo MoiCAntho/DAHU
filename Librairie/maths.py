@@ -5,7 +5,7 @@
 ## Contient les algorithmes de calcul numerique et egalement un CAS ? ##
 import ply.lex as lex
 import math
-#import giacpy
+import giacpy
 import erreurs as er
 import random as r
 
