@@ -3,8 +3,7 @@
 ## Faire les docstrings : """...""" ##
 
 ## Contient les algorithmes de calcul numerique et egalement un CAS ? ##
-from enum import Enum
-from dataclasses import dataclass
+import ply.lex as lex
 import math
 #import giacpy
 import erreurs as er
@@ -14,101 +13,132 @@ import random as r
 
 # Lexer #
 
-class TokenType(Enum) :
-    Nombre = 0
-    Variable = 1
-    Plus = 2
-    Moins = 3
-    Fois = 4
-    Obel = 5
-    Exposant = 6
-    OParen = 7
-    FParen = 8
-    Fonction = 9
+## Tokens du lexer ##
 
-@dataclass
-class Token :
-    type : TokenType
-    value : any = None
+Tokens = (
+    "Nombre","Variable","Plus","Moins","Fois","Obel","Exposant","OParen","FParen"
+)
 
-    def __repr__(self) :
-        return self.type.name + (f":{self.value}" if self.value != None else "")
+## Expressions regulières et infos pour le lexer ##
 
-ESPACE = " \n\t"
-DECIMALS = "0123456789"
-ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+t_Plus = r"\+"
+t_Moins   = r"-"
+t_Fois   = r"\*"
+t_Obel  = r"/"
+t_Exposant  = r"\^"
+t_OParen  = r"\("
+t_FParen  = r"\)"
+
 FONCTIONS = ["ln","exp","sin","cos","tan","sec","cosec","cotan","cosh","sinh","tanh"] #Rajouter f(x) utiles
 
-class Lexer :
-    def __init__(self,expr) :
-        self.expr = iter(expr)
-        self.avancement()
+
+lexer = lex.lex()
+
+def Tokenize(expr) :
+    lexer.input(expr)
+    while True :
+        tok = lexer.token()
+        if not tok :
+            break
+
+
+
+
+# class TokenType(Enum) :
+#     Nombre = 0
+#     Variable = 1
+#     Plus = 2
+#     Moins = 3
+#     Fois = 4
+#     Obel = 5
+#     Exposant = 6
+#     OParen = 7
+#     FParen = 8
+#     Fonction = 9
+
+# @dataclass
+# class Token :
+#     type : TokenType
+#     value : any = None
+
+#     def __repr__(self) :
+#         return self.type.name + (f":{self.value}" if self.value != None else "")
+
+# ESPACE = " \n\t"
+# DECIMALS = "0123456789"
+# ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+# 
+
+# class Lexer :
+#     def __init__(self,expr) :
+#         self.expr = iter(expr)
+#         self.avancement()
     
-    def avancement(self) :
-        try :
-            self.car_actuel = next(self.expr)
-        except :
-            self.car_actuel = None
+#     def avancement(self) :
+#         try :
+#             self.car_actuel = next(self.expr)
+#         except :
+#             self.car_actuel = None
     
-    def affublage(self) :
-        while self.car_actuel != None :
-            if self.car_actuel in ESPACE :
-                self.avancement()
-            elif self.car_actuel == "." or self.car_actuel in DECIMALS :
-                yield self.Nombre()
-            elif self.car_actuel == "+" :
-                self.avancement()
-                yield Token(TokenType.Plus)
-            elif self.car_actuel == "-" :
-                self.avancement()
-                yield Token(TokenType.Moins)
-            elif self.car_actuel == "*" :
-                self.avancement()
-                yield Token(TokenType.Fois)
-            elif self.car_actuel == "/" :
-                self.avancement()
-                yield Token(TokenType.Obel)
-            elif self.car_actuel == "^" :
-                self.avancement()
-                yield Token(TokenType.Exposant)
-            elif self.car_actuel == "(" :
-                self.avancement()
-                yield Token(TokenType.OParen)
-            elif self.car_actuel == ")" :
-                self.avancement()
-                yield Token(TokenType.FParen)
-            elif self.car_actuel in ALPHABET :
-                if next(self.expr) in ALPHABET == True :
-                    f = "" + self.car_actuel
-                    while next(self.expr) in ALPHABET :
-                        self.avancement()
-                        f += self.car_actuel
-                        yield self.Fonction()
-                else :
-                    yield self.Variable()
+#     def affublage(self) :
+#         while self.car_actuel != None :
+#             if self.car_actuel in ESPACE :
+#                 self.avancement()
+#             elif self.car_actuel == "." or self.car_actuel in DECIMALS :
+#                 yield self.Nombre()
+#             elif self.car_actuel == "+" :
+#                 self.avancement()
+#                 yield Token(TokenType.Plus)
+#             elif self.car_actuel == "-" :
+#                 self.avancement()
+#                 yield Token(TokenType.Moins)
+#             elif self.car_actuel == "*" :
+#                 self.avancement()
+#                 yield Token(TokenType.Fois)
+#             elif self.car_actuel == "/" :
+#                 self.avancement()
+#                 yield Token(TokenType.Obel)
+#             elif self.car_actuel == "^" :
+#                 self.avancement()
+#                 yield Token(TokenType.Exposant)
+#             elif self.car_actuel == "(" :
+#                 self.avancement()
+#                 yield Token(TokenType.OParen)
+#             elif self.car_actuel == ")" :
+#                 self.avancement()
+#                 yield Token(TokenType.FParen)
+#             elif self.car_actuel in ALPHABET :
+#                 if next(self.expr) in ALPHABET == True :
+#                     f = "" + self.car_actuel
+#                     while next(self.expr) in ALPHABET :
+#                         self.avancement()
+#                         f += self.car_actuel
+#                         yield self.Fonction()
+#                 else :
+#                     yield self.Variable()
 
     
-    def Nombre() :
-        # ???
-        return Token(TokenType.Nombre, valeur)
+#     def Nombre() :
+#         # ???
+#         return Token(TokenType.Nombre, valeur)
 
-    def Variable() :
-        # ???
-        return Token(TokenType.Variable, symbole)
+#     def Variable() :
+#         # ???
+#         return Token(TokenType.Variable, symbole)
 
-    def Fonction() :
-        return Token(TokenType.Fonction)
-
-
-
-# Parser #
-
-
-# Interpreter #
+#     def Fonction() :
+#         return Token(TokenType.Fonction)
 
 
 
-## ou utilisation de simpy, integration XCas ?
+# # Parser #
+
+
+# # Interpreter #
+
+
+
+# ## ou utilisation de simpy, integration XCas ?
 
 ## Definition d'objets généraux ##
 
