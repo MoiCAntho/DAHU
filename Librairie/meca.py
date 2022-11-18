@@ -1,15 +1,10 @@
-## Module : Partie Mecanique
+## Librairie : Partie Mecanique ##
 
 import main
 import maths as ma
 import erreurs as er
 from numpy import diff
 
-## Choisir quel type de mecanique 
-# -du point
-# -du solide
-# -des fluides
-# ...##
 
 ## Classes ##
 
@@ -52,7 +47,6 @@ class Torseur :
 
     def Transport(self) :
         if self.ty == "Force" :
-            m = mo + ma.prodvec(ma.Vecteur,self.r)
             pass
 
 # Faire les filtres pour diverses vérifications dans les fonctions (rajouter les erreurs, s'il faut)

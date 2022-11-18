@@ -3,39 +3,110 @@
 ## Faire les docstrings : """...""" ##
 
 ## Contient les algorithmes de calcul numerique et egalement un CAS ? ##
+from enum import Enum
+from dataclasses import dataclass
 import math
 #import giacpy
 import erreurs as er
 import random as r
 
-## Calcul formel ##
+## Calcul formel (CAS) et gestion de d'expressions numeriques ##
 
-class Expr :
-    def __init__(self,expr) : #Creer une expression quelconque a partir d'une chaine de caracteres (filtres a faire) !
-        self.Expr = expr
-        pass
-        
-    def strucute(self) :
-        pass
+# Lexer #
+
+class TokenType(Enum) :
+    Nombre = 0
+    Variable = 1
+    Plus = 2
+    Moins = 3
+    Fois = 4
+    Obel = 5
+    Exposant = 6
+    OParen = 7
+    FParen = 8
+    Fonction = 9
+
+@dataclass
+class Token :
+    type : TokenType
+    value : any = None
+
+    def __repr__(self) :
+        return self.type.name + (f":{self.value}" if self.value != None else "")
+
+ESPACE = " \n\t"
+DECIMALS = "0123456789"
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+FONCTIONS = ["ln","exp","sin","cos","tan","sec","cosec","cotan","cosh","sinh","tanh"] #Rajouter f(x) utiles
+
+class Lexer :
+    def __init__(self,expr) :
+        self.expr = iter(expr)
+        self.avancement()
     
-    def __getitem__(self,index) :
-        return self.Expr[index]
+    def avancement(self) :
+        try :
+            self.car_actuel = next(self.expr)
+        except :
+            self.car_actuel = None
+    
+    def affublage(self) :
+        while self.car_actuel != None :
+            if self.car_actuel in ESPACE :
+                self.avancement()
+            elif self.car_actuel == "." or self.car_actuel in DECIMALS :
+                yield self.Nombre()
+            elif self.car_actuel == "+" :
+                self.avancement()
+                yield Token(TokenType.Plus)
+            elif self.car_actuel == "-" :
+                self.avancement()
+                yield Token(TokenType.Moins)
+            elif self.car_actuel == "*" :
+                self.avancement()
+                yield Token(TokenType.Fois)
+            elif self.car_actuel == "/" :
+                self.avancement()
+                yield Token(TokenType.Obel)
+            elif self.car_actuel == "^" :
+                self.avancement()
+                yield Token(TokenType.Exposant)
+            elif self.car_actuel == "(" :
+                self.avancement()
+                yield Token(TokenType.OParen)
+            elif self.car_actuel == ")" :
+                self.avancement()
+                yield Token(TokenType.FParen)
+            elif self.car_actuel in ALPHABET :
+                if next(self.expr) in ALPHABET == True :
+                    f = "" + self.car_actuel
+                    while next(self.expr) in ALPHABET :
+                        self.avancement()
+                        f += self.car_actuel
+                        yield self.Fonction()
+                else :
+                    yield self.Variable()
 
-    def __str__(self) :
-        r = ""
-        for i in range(1000) :
-            try :
-                r += str(self[i])
-                print(r)
-            except IndexError or RecursionError :
-                break
-            
-        return(r)
+    
+    def Nombre() :
+        # ???
+        return Token(TokenType.Nombre, valeur)
 
-    def split(self,el) :
-        a = self
-        re = a.split(el)
-        return a
+    def Variable() :
+        # ???
+        return Token(TokenType.Variable, symbole)
+
+    def Fonction() :
+        return Token(TokenType.Fonction)
+
+
+
+# Parser #
+
+
+# Interpreter #
+
+
 
 ## ou utilisation de simpy, integration XCas ?
 
@@ -443,6 +514,16 @@ class Fonction :
             return b
 
 class Graph :
+    def __init__(self) :
+        pass
+
+class Ensemble :
+
+    def __init__(self) :
+        pass
+
+class Intervalle(Ensemble) :
+
     def __init__(self) :
         pass
 
