@@ -1,8 +1,10 @@
-## Module : Partie Mathematiques ##
+## Librairie : Partie Mathematiques ##
 
-## Contient les algorithmes de calcul numerique et egalement un CAS ##
+## Faire les docstrings : """...""" ##
+
+## Contient les algorithmes de calcul numerique et egalement un CAS ? ##
 import math
-import giacpy
+#import giacpy
 import erreurs as er
 import random as r
 
@@ -147,9 +149,15 @@ class Matrice :
     def __pow__(self) : #Mise à la puissance (A faire, necessite la def de l'inverse) !
         pass
 
-    def __eq__(self,autre) : #Verification de l'egalite (A faire) !
-        pass
-
+    def __eq__(self,autre) : #Verification de l'egalite (faire les filtres) !
+        # + Verification matrice meme dimension
+        for i in range(self.nbl) :
+            for j in range(self.nbc) :
+                if self[i][j] != autre[i][j] :
+                    return False
+                else :
+                    return True
+    
     def iscarree(self) : #Vérification qu'une matrice est carree
         if self.nbl == self.nbc :
             return True
@@ -164,7 +172,7 @@ class Matrice :
 
     ## Generations de Matrices particulieres ##
 
-    def randomatrice(lignes,colonnes,xmin=0,xmax=100) : #Generation d'une matrice aux coefficients aleatoires
+    def randomatrice(lignes,colonnes,xmin=-15,xmax=15) : #Generation d'une matrice aux coefficients aleatoires
         mat = Matrice(lignes,colonnes)
         for i in range(lignes) :
             for j in range(colonnes) :
@@ -326,7 +334,7 @@ class Vecteur(Matrice) :
     def __len__(self) :
         return self.n
 
-    def __rmul__(self, autre): #Produit par un réel et produit scalaire !
+    def __mul__(self, autre): #Produit par un réel et produit scalaire !
         if isinstance(autre,int) :
             vec = Vecteur(len(self))
             for i in range(len(self)) :
@@ -335,15 +343,25 @@ class Vecteur(Matrice) :
         if isinstance(autre,Vecteur) :
             if len(self) == len(autre) :
                 vec = Vecteur(len(self))
+                sca = 0
                 for i in range(len(self)) :
-                    vec[i] = autre[i]*self[i]
-                return vec
+                    sca += autre[i]*self[i]
+                return sca
 
+    def __repr__(self):
+        return super().__repr__()
     ## Formules et opérations sur les vecteurs ##
     
-    def VecPts(*pt) :
-        pass 
-
+    def VecPts(pts) : #Prend en argument une liste de tuples representant les coordonnees de chaques points (faire les filtres) !
+        n = len(pts) 
+        # + Verification de la dimension de chaque pts
+        vec = Vecteur(n)
+        for i in range(n) :
+            x = 0
+            for j in range(n) :
+                x -= pts[-j][i]
+            vec[i] = x
+        return vec
 
     def prodvec(self,autre) : #Produit vectoriel de deux vecteurs de R3 (faire les filtres) !
         if er.Error_ma_1(Vecteur,self,autre) :
@@ -427,3 +445,5 @@ class Fonction :
 class Graph :
     def __init__(self) :
         pass
+
+## Fonctions ##

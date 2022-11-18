@@ -45,17 +45,17 @@ def Error_ma_1(clas,el1,el2=None) :
             return True
     print("Erreur_maths_1 : Cette action necessite un(des) objet de la classe : "+str(clas))
 
-def Error_ma_6():
+def Error_ma_2():
     print("Erreur_maths_1 : Mauvaises dimensions")
 
-def Error_ma_2(ty=None):
+def Error_ma_3(ty=None):
     print("Erreur_maths_2 : "+ty+" ne peut etre opéré(e) que par "+ty)
 
-def Error_ma_3():
+def Error_ma_4():
     print("Erreur_maths_3 : Division par 0")
 
-def Error_ma_4():
+def Error_ma_5():
     print("Erreur_maths_4 : Necessite d'une matrice carree")
 
-def Error_ma_5():
+def Error_ma_6():
     print("Erreur_maths_5 : Mauvaises dimensions")

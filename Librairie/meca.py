@@ -1,7 +1,7 @@
 ## Module : Partie Mecanique
 
 import main
-import maths
+import maths as ma
 import erreurs as er
 from numpy import diff
 
@@ -42,12 +42,17 @@ class Torseur :
         else :
             pass
 
+    def __mul__(self,autre) : #Multiplication par un autre torseur et par un scalaire
+        if isinstance(autre,Torseur) :
+            pass
+
 ## Generations des torseurs usuelles ##
 
 ## Formules diverses ##
 
     def Transport(self) :
         if self.ty == "Force" :
+            m = mo + ma.prodvec(ma.Vecteur,self.r)
             pass
 
 # Faire les filtres pour diverses vérifications dans les fonctions (rajouter les erreurs, s'il faut)
