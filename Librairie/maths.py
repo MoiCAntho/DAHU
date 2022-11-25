@@ -3,7 +3,6 @@
 ## Faire les docstrings : """...""" ##
 
 ## Contient les algorithmes de calcul numerique ##
-import ply.lex as lex
 import math
 import giacpy
 import erreurs as er
@@ -13,11 +12,9 @@ import random as r
 
 class Expression :
 
-    CHIFFRES = "0123456789"
-
-    def __init__(self) : #Création d'une expression vide
-        self.Expression = ""
-        return self.Expression
+    def __init__(self,expr) : #Création d'une expression à l'aide d'un str (Faire les filtres) !
+        self.expr = expr
+        self.Expression = giacpy.giac(expr)
 
     def __getitem__(self,index) :
         return self[index]
@@ -26,21 +23,14 @@ class Expression :
         self[index] = valeur
     
     def __str__(self) :
-        pass
+        a = ""
+        for i in self :
+            a += str(i)
+        return a
 
     def __repr__(self) :
         a = str(self)
         return self
-    
-    def expr(self,str,var) :
-        self.var = var
-        for i in range(len(str)) :
-            while VerifFin(str,i) :
-                if isinstance(i,int) :
-                    
-
-            
-        return self.Expression
  
 
     def VerifFin(expr,i) :
@@ -49,9 +39,6 @@ class Expression :
             return True
         except :
             return False
-
-    def var(var) :
-        return giacpy.giac(var)
     
 
 ## Definition d'objets généraux ##
@@ -320,6 +307,9 @@ class Matrice :
         n = self.dim()
         pass
 
+    def Spectre(self): #Renvoie le spectre de la matrice si elle est diagonalisable (A faire) !
+        pass
+
     ## Fonctions ##
 
     def LignePlusGrand(matrice,col) : #Renvoie le numero de la ligne contenant le plus grand coefficient d'une colonne
@@ -471,4 +461,13 @@ class Intervalle(Ensemble) :
     def __init__(self) :
         pass
 
-## Fonctions ##
+## Fonctions de Calcul algebrique ##
+
+
+## Fonctions de Calcul numerique ##
+
+def PGCD(nb_1,nb_2) :
+    pass
+
+def PPCM(nb_1,nb_2) :
+    pass

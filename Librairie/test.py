@@ -10,6 +10,6 @@ import phy as p
 # f=importdata("C:\\Users\\segur\\Documents\\MEGA\\Université\\MEC204-Mécanique du point II\\TP\\TP 3 Ressorts frottements secs\\données.csv")
 # print(f)
 
-a = ma.Expression.expr("12x+4")
-
-print(a)
+a = ma.Expression("5x+4cos(8x)")
+print(giacpy.giac("5x+4cos(8x)"))
+print(str(a))
