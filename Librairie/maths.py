@@ -17,17 +17,20 @@ class Expression :
         self.Expression = giacpy.giac(expr)
 
     def __getitem__(self,index) :
-        return self[index]
+        return self.Expression[index]
 
     def __setitem__(self,index,valeur) :
-        self[index] = valeur
+        self.Expression[index] = valeur
     
     def __str__(self) :
         a = ""
-        for i in self :
-            a += str(i)
+        for i in range(len(self)) :
+            a += str(self[i])
         return a
 
+    def __len__(self):
+        return len(self.expr)
+    
     def __repr__(self) :
         a = str(self)
         return self
