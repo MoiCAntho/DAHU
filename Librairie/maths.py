@@ -236,8 +236,13 @@ class Matrice :
                     mat[i][j] *= valeur
         return mat
 
-    def mel_transvection_l(ligne_1,ligne_2,valeur,n) : #Matrice elementaire de transvections de 2 lignes (interversion l1 et l2 avec l1 = valeur*l1) (faire les filtres) !
-        mat = Matrice.mel_permutation_l(ligne_1,ligne_2,n) * Matrice.mel_dilatation_l(ligne_1,valeur,n)
+    def mat_creuse_1(ligne, colonne, valeur,n) : #Matrice creuse contenant 1 valeur à la position (ligne,colonne)
+        mat = Matrice(n,n)
+        mat[ligne][colonne] = valeur
+        return mat
+
+    def mel_transvection_l(ligne_1,ligne_2,valeur,n) : #Matrice elementaire de transvections de 2 lignes (ajoute à l2 l1*valeur) (faire les filtres) !
+        mat = Matrice.matriceid(n)+valeur*Matrice.mat_creuse_1(ligne_1,ligne_2,1,n)
         return mat
 
     # def mel_permutation_c(colonne_1,colonne_2,n) : #A faire
@@ -292,9 +297,8 @@ class Matrice :
         nbl = self.nbl
         nbc = self.nbc
         for col in range(nbc) :
-            lgn = Matrice.LignePlusGrand(self,col)
-            if lgn != col :
-                self *= Matrice.mel_permutation_l()
+            for lig in range(nbl) :
+
         pass 
 
     def comatrice(self) : #Retourne la comatrice d'une matrice (A faire) !
