@@ -241,8 +241,8 @@ class Matrice :
         mat[ligne][colonne] = valeur
         return mat
 
-    def mel_transvection_l(ligne_1,ligne_2,valeur,n) : #Matrice elementaire de transvections de 2 lignes (ajoute à l2 l1*valeur) (faire les filtres) !
-        mat = Matrice.matriceid(n)+valeur*Matrice.mat_creuse_1(ligne_1,ligne_2,1,n)
+    def mel_transvection_l(ligne_1,ligne_2,valeur,n) : #Matrice elementaire de transvections de 2 lignes (l1 prend la valeur de l1-valeur*l2) (faire les filtres) !
+        mat = Matrice.matriceid(n)+valeur*Matrice.mat_creuse_1(ligne_1-1,ligne_2-1,1,n)
         return mat
 
     # def mel_permutation_c(colonne_1,colonne_2,n) : #A faire
@@ -298,6 +298,7 @@ class Matrice :
         nbc = self.nbc
         for col in range(nbc) :
             for lig in range(nbl) :
+                self *= Matrice.mel_transvection_l()
 
         pass 
 
