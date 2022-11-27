@@ -141,14 +141,14 @@ class Matrice :
         else :
             er.Error_6()
 
-    def __rmul__(self,autre) : #Commutativite de la multiplication par un scalaire faire les filtres
+    def __rmul__(self,autre) : #Commutativite de la multiplication par un scalaire (faire les filtres)
         if isinstance(autre,int) :
             return self*autre
 
     def __imul__(self,autre) : #Utilisation de l'operateur *= !
         return self * autre
 
-    def __div__(self,autre) : #Division (A faire) :
+    def __div__(self,autre) : #Division nécessite la puissance (A faire) :
         pass
 
     def __pow__(self) : #Mise à la puissance (A faire, necessite la def de l'inverse) !
