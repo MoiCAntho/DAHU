@@ -4,7 +4,7 @@
 
 ## Contient les algorithmes de calcul numerique ##
 import math
-import giacpy
+import giacpy as g
 import erreurs as er
 import random as r
 
@@ -14,7 +14,7 @@ class Expression :
 
     def __init__(self,expr) : #Création d'une expression à l'aide d'un str (Faire les filtres) !
         self.expr = expr
-        self.Expression = giacpy.giac(expr)
+        self.Expression = g.giac(expr)
 
     def __getitem__(self,index) :
         return self.Expression[index]
@@ -23,10 +23,7 @@ class Expression :
         self.Expression[index] = valeur
     
     def __str__(self) :
-        a = ""
-        for i in range(len(self)) :
-            a += str(self[i])
-        return a
+        return self.expr
 
     def __len__(self):
         return len(self.expr)
@@ -34,15 +31,17 @@ class Expression :
     def __repr__(self) :
         a = str(self)
         return self
- 
 
-    def VerifFin(expr,i) :
-        try :
-            expr[i+1]
-            return True
-        except :
-            return False
-    
+    def __add__(self,autre) :
+        a = self.expr
+        b = autre.expr
+        a = g.giac(a)
+        b = g.giac(b)
+        c = a + b
+        self.Expression = c
+        self.expr = str(c)
+        return self
+
 
 ## Definition d'objets généraux ##
 
