@@ -42,6 +42,17 @@ class Expression :
         self.expr = str(c)
         return self
 
+    def chgt(self,var_1,var_2) :
+        a = self.expr
+        for i in range(len(a)) :
+            if str(a[i]) == str(var_1) :
+                a[i] = str(var_2)
+        return(self.Expression(a))
+
+    def subs(self,var,val) :
+        self.expr = self.chgt(var,"t")
+        b = g.subs(g.giac(self.expr),t=val)
+        return b
 
 ## Definition d'objets généraux ##
 

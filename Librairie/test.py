@@ -1,4 +1,3 @@
-import giacpy as g
 import maths as ma
 # #Test de la fonction importdonnees#
 # f=importdata("C:\\Users\\segur\\Documents\\MEGA\\Université\\MEC204-Mécanique du point II\\TP\\TP 3 Ressorts frottements secs\\données.csv")
@@ -15,3 +14,4 @@ import maths as ma
 a = ma.Expression("2t+3")
 b = ma.Expression("4t^3+6t")
 print(a+b)
+print(ma.Expression.subs(a,"t",6))

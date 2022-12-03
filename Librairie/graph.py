@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import giacpy as g
+import maths as ma
 
 class Graph :
     def __init__(self) -> None:
@@ -13,8 +13,9 @@ def plotparam(X,Y,param,inter=[-10,10],nbpts=10000): #Faire les filtres
     for i in t :
         x.append(g.subs(param=t,X))
         y.append(g.subs(param=t,Y))
-    graph = plt.plot(x,y)
-    print(graph)
+    figs, ax = plt.subplots()
+    ax.plot(X,Y)
+    
 
 
 
