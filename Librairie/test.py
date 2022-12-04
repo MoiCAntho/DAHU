@@ -14,4 +14,4 @@ import maths as ma
 a = ma.Expression("2t+3")
 b = ma.Expression("4t^3+6t")
 print(a+b)
-print(ma.Expression.subs(a,"t",6))
+print(ma.Expression.subs(a,"t","6"))

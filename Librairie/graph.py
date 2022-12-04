@@ -11,8 +11,8 @@ def plotparam(X,Y,param,inter=[-10,10],nbpts=10000): #Faire les filtres
     x = []
     y = []
     for i in t :
-        x.append(g.subs(param=t,X))
-        y.append(g.subs(param=t,Y))
+        x.append(X.subs()
+        y.append(Y.subs(param=t,Y))
     figs, ax = plt.subplots()
     ax.plot(X,Y)
     

@@ -12,7 +12,8 @@ import random as r
 
 class Expression :
 
-    def __init__(self,expr) : #Création d'une expression à l'aide d'un str (Faire les filtres) !
+    def __init__(self,expr,var,cte) : #Création d'une expression à l'aide d'un str (Faire les filtres) !
+        c = {"var" : var ,"cte" : cte}
         self.expr = expr
         self.Expression = g.giac(expr)
 
@@ -42,17 +43,13 @@ class Expression :
         self.expr = str(c)
         return self
 
-    def chgt(self,var_1,var_2) :
-        a = self.expr
-        for i in range(len(a)) :
-            if str(a[i]) == str(var_1) :
-                a[i] = str(var_2)
-        return(self.Expression(a))
-
-    def subs(self,var,val) :
-        self.expr = self.chgt(var,"t")
-        b = g.subs(g.giac(self.expr),t=val)
+    def subs(self,var_1,var_2) :
+        a = str(self.expr)
+        b = a.replace(var_1,var_2)
         return b
+    
+    def eval(self,var,val) :
+        return g.giac(self.subs(var,val))
 
 ## Definition d'objets généraux ##
 
