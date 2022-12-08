@@ -303,13 +303,16 @@ class Matrice :
     def triangsup(self) : #finir et faire les autres matrices elementaires pour col et ligne/colo
         nbl = self.nbl
         nbc = self.nbc
+        cpt = 0
         for col in range(nbc) :
+            a = self[col][col]
+            cpt += 1
             for lig in range(nbl) :
-                self *= Matrice.mel_transvection_l()
+                if col != lig :
+                    self *= Matrice.mel_transvection_l(lig,cpt,a)
+        return self
 
-        pass 
-
-    def comatrice(self) : #Retourne la comatrice d'une matrice (A faire) !
+    def comatrice(self) : #Retourne la matrice de cofacteur d'une matrice (A faire) !
         pass
 
     def inverse(self) : #Nous retourne la matrice inverse (Definir comatrice()) (Faire les filtres) !
@@ -352,7 +355,7 @@ class Vecteur(Matrice) :
         self[index] = valeur
 
     def __len__(self) :
-        return self.n
+        return self.l
 
     def __mul__(self, autre): #Produit par un réel et produit scalaire !
         if isinstance(autre,int) :
@@ -383,17 +386,18 @@ class Vecteur(Matrice) :
             vec[i] = x
         return vec
 
-    def prodvec(self,autre) : #Produit vectoriel de deux vecteurs de R3 (faire les filtres) !
-        if er.Error_ma_1(Vecteur,self,autre) :
-            if len(self) == self(autre) == 3 :
+    def prodvec(vec1,vec2) : #Produit vectoriel de deux vecteurs de R3 (faire les filtres) !
+        if er.Error_ma_1(Vecteur,vec1,vec2) :
+            if len(vec1) == len(vec2) == 3 :
                 vec = Vecteur(3)
-                vec[0] = self[1]*autre[2] - self[2]*autre[1]
-                vec[1] = self[2]*autre[0] - self[0]*autre[2]
-                vec[2] = self[0]*autre[1] - self[1]*autre[0]
+                vec[0] = vec1[1]*vec2[2] - vec1[2]*vec2[1]
+                vec[1] = vec1[2]*vec2[0] - vec1[0]*vec2[2]
+                vec[2] = vec1[0]*vec2[1] - vec1[1]*vec2[0]
             return vec
 
+
 class Complexe :
-    def __init__(self,a = 0,b = 0) : #Initialise un nombre complexe (Faire filtres) !
+    def __init__(self,a = 0,b = 0) : #Initialise un nombre complexe (forme algébrique) (Faire filtres) !
         self.a, self.b = a, b
     
     def __repr__(self) : #Definition pour la fonction print !
@@ -429,14 +433,10 @@ class Complexe :
         return (self.r, self.th)
         pass
 
-class Arbre :
-    def __init__(self,Nom) : #Genere un arbre vide
-        arbre = { Nom : []}
-        self.Arbre = arbre
 
 class Fonction :
-    def __init__(self,nom,expr) :
-        self.Fonction = {nom : expr}
+    def __init__(self,nom,expr,var) :
+        self.Fonction = {"{}".format(nom) : expr, "var" : var}
 
     ## Definition des fonction usuelles ##
     def sqrt(val = None) :
@@ -462,9 +462,10 @@ class Fonction :
             b = Fonction.sqrt(a)
             return b
 
-class Graph :
-    def __init__(self) :
+class Polynôme :
+    def __init__(self):
         pass
+        
 
 class Ensemble :
 
@@ -479,10 +480,13 @@ class Intervalle(Ensemble) :
 ## Fonctions de Calcul algebrique ##
 
 
-## Fonctions de Calcul numerique ##
+## Fonctions Arithmétiques ##
 
 def PGCD(nb_1,nb_2) :
     pass
 
 def PPCM(nb_1,nb_2) :
+    pass
+
+def eratostene(n) :
     pass
