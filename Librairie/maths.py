@@ -229,6 +229,13 @@ class Matrice :
         else :
             er.Error_ma_5()
 
+    def mat_creuse_1(ligne, colonne, valeur,n) : #Matrice creuse contenant 1 valeur à la position (ligne,colonne)
+        mat = Matrice(n,n)
+        mat[ligne][colonne] = valeur
+        return mat
+
+    ## Attention pour utiliser les mel il faut poser la multiplication dans le bon sens mel*mat !! ##
+
     def mel_permutation_l(ligne_1,ligne_2,n) : #Matrice elementaire de permutation de deux lignes (faire les filtres)
         mat = Matrice.matriceid(n)
         for col in range(n) : 
@@ -241,11 +248,6 @@ class Matrice :
             if i == ligne-1 :
                 for j in range(n) :
                     mat[i][j] *= valeur
-        return mat
-
-    def mat_creuse_1(ligne, colonne, valeur,n) : #Matrice creuse contenant 1 valeur à la position (ligne,colonne)
-        mat = Matrice(n,n)
-        mat[ligne][colonne] = valeur
         return mat
 
     def mel_transvection_l(ligne_1,ligne_2,valeur,n) : #Matrice elementaire de transvections de 2 lignes (l1 prend la valeur de l1-valeur*l2) (faire les filtres) !
@@ -309,7 +311,7 @@ class Matrice :
             cpt += 1
             for lig in range(nbl) :
                 if col != lig :
-                    self *= Matrice.mel_transvection_l(lig,cpt,a)
+                    self = Matrice.mel_transvection_l(lig,cpt,a,self.dim()[1])*self
         return self
 
     def comatrice(self) : #Retourne la matrice de cofacteur d'une matrice (A faire) !
