@@ -12,7 +12,7 @@ import random as r
 
 class Expression :
 
-    def __init__(self,expr,var,cte) : #Création d'une expression à l'aide d'un str (Faire les filtres) !
+    def __init__(self,expr,var,cte = None) : #Création d'une expression à l'aide d'un str (Faire les filtres) !
         c = {"var" : var ,"cte" : cte}
         self.expr = expr
         self.Expression = g.giac(expr)
@@ -50,6 +50,12 @@ class Expression :
     
     def eval(self,var,val) :
         return g.giac(self.subs(var,val))
+    
+    ## Calcul infinitesimal : derivees, integrales, limites ...##
+
+    def deriv(self,var) :
+        a = g.giac(self.expr)
+        return g.diff(a,var)
 
 ## Definition d'objets généraux ##
 
