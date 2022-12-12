@@ -56,6 +56,12 @@ class Expression :
     def deriv(self,var) :
         a = g.giac(self.expr)
         return g.diff(a,var)
+    
+    def int(self,var,a=None,b=None):
+        if a == None and b == None :
+            return g.int(g.giac(self.expr,var))
+        else :
+            return g.int(g.giac(self.expr,var,a,b))
 
 ## Definition d'objets généraux ##
 
