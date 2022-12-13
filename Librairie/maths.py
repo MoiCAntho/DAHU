@@ -2,8 +2,8 @@
 
 ## Faire les docstrings : """...""" ##
 
-## Contient les algorithmes de calcul numerique ##
-import math
+## Import des modules essentiels ##
+
 import giacpy as g
 import erreurs as er
 import random as r
@@ -72,7 +72,7 @@ class Expression :
         self.sexpr = str(self.Expr)
         return self
 
-## Definition d'objets généraux ##
+## Definitions d'objets mathématiques généraux ##
 
 class Matrice :
     """Classe permettant de creer et manipuler les matrices"""
@@ -286,7 +286,6 @@ class Matrice :
                 lignePlusGrand = ln
         return lignePlusGrand
 
-
 class Vecteur(Matrice) :
 
     def __init__(self,n) : #Initialisation d'un vecteur (genere le vecteur nul)
@@ -319,7 +318,6 @@ class Vecteur(Matrice) :
 
     def __repr__(self):
         return super().__repr__()
-    ## Formules et opérations sur les vecteurs ##
     
     def VecPts(pts) : #Prend en argument une liste de tuples representant les coordonnees de chaques points (faire les filtres) !
         n = len(pts) 
@@ -331,7 +329,6 @@ class Vecteur(Matrice) :
                 x -= pts[-j][i]
             vec[i] = x
         return vec
-
 
 class Complexe :
     def __init__(self,a = 0,b = 0) : #Initialise un nombre complexe (forme algébrique) (Faire filtres) !
@@ -370,7 +367,6 @@ class Complexe :
         return (self.r, self.th)
         pass
 
-
 class Fonction(Expression) :
     def __init__(self,nom,expr,var) :
         self.Fonction = {"{}".format(nom) : expr, "var" : var}
@@ -402,7 +398,6 @@ class Fonction(Expression) :
 class Polynôme :
     def __init__(self):
         pass
-        
 
 class Ensemble :
 
@@ -480,7 +475,7 @@ def mat_creuse_1(ligne, colonne, valeur,n) : #Matrice creuse contenant 1 valeur 
     mat[ligne][colonne] = valeur
     return mat
 
-    ## Attention pour utiliser les mel il faut poser la multiplication dans le bon sens mel*mat !! ##
+ ## Attention pour utiliser les mel il faut poser la multiplication dans le bon sens mel*mat !! ##
 
 def mel_permutation_l(ligne_1,ligne_2,n) : #Matrice elementaire de permutation de deux lignes (faire les filtres)
     mat = matriceid(n)

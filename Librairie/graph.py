@@ -3,7 +3,7 @@ from numpy import linspace
 import maths as ma
 
 class Graph :
-    def __init__(self) -> None:
+    def __init__(self) :
         pass
 
 
@@ -25,11 +25,12 @@ def param(X,Y,param,inter=[-10,10],nbpts=10000): #Faire les filtres
     ax.set_ylim(y[0],y[-1])
     ax.plot(x,y)
     plt.show()
-    
 
+def polar(R,T,param,inter) :
+    pass
 
+def isoclines() :
+    pass
 
-class Papier :
-    def __init__(args):
-        pass
-        
+def chmp_tan(eq) :
+    pass        
