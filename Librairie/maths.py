@@ -1,4 +1,4 @@
-## Librairie : Partie Mathematiques ##
+## DAHU : Partie Mathematiques ##
 
 ## Faire les docstrings : """...""" ##
 
@@ -8,7 +8,7 @@ import giacpy as g
 import erreurs as er
 import random as r
 
-# Utilisation de Giac pour gestion des variables et des expressions
+# Utilisation de Giac pour gestion des variables et des expressions et autres pitits trucs ##
 
 class Expression :
 
@@ -332,15 +332,6 @@ class Vecteur(Matrice) :
             vec[i] = x
         return vec
 
-    def prodvec(vec1,vec2) : #Produit vectoriel de deux vecteurs de R3 (faire les filtres) !
-        if er.Error_ma_1(Vecteur,vec1,vec2) :
-            if len(vec1) == len(vec2) == 3 :
-                vec = Vecteur(3)
-                vec[0] = vec1[1]*vec2[2] - vec1[2]*vec2[1]
-                vec[1] = vec1[2]*vec2[0] - vec1[0]*vec2[2]
-                vec[2] = vec1[0]*vec2[1] - vec1[1]*vec2[0]
-            return vec
-
 
 class Complexe :
     def __init__(self,a = 0,b = 0) : #Initialise un nombre complexe (forme algébrique) (Faire filtres) !
@@ -380,7 +371,7 @@ class Complexe :
         pass
 
 
-class Fonction :
+class Fonction(Expression) :
     def __init__(self,nom,expr,var) :
         self.Fonction = {"{}".format(nom) : expr, "var" : var}
 
@@ -422,6 +413,18 @@ class Intervalle(Ensemble) :
 
     def __init__(self) :
         pass
+
+
+## Définitions de quelques opérations ##
+
+def prodvec(vec1,vec2) : #Produit vectoriel de deux vecteurs de R3 (faire les filtres) !
+    if er.Error_ma_1(Vecteur,vec1,vec2) :
+        if len(vec1) == len(vec2) == 3 :
+            vec = Vecteur(3)
+            vec[0] = vec1[1]*vec2[2] - vec1[2]*vec2[1]
+            vec[1] = vec1[2]*vec2[0] - vec1[0]*vec2[2]
+            vec[2] = vec1[0]*vec2[1] - vec1[1]*vec2[0]
+        return vec
 
 
 ## Génération de matrices ##

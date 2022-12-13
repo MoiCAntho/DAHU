@@ -3,7 +3,6 @@
 import main
 import maths as ma
 import erreurs as er
-from numpy import diff
 
 
 ## Classes ##
@@ -41,6 +40,13 @@ class Torseur :
         if isinstance(autre,Torseur) :
             pass
 
+    def champ(self,pt) :
+        if self.ty == "force" : #Transport du torseur : formule de transport des moments
+            pts
+            c = ma.prodvec(ma.Vecteur(pts),self.R)
+            return self
+        elif self.ty == "Cinem" : #Transport du troseur : champ de vitesse
+            pass
 ## Generations des torseurs usuelles ##
 
 ## Formules diverses ##
