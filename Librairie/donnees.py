@@ -31,3 +31,8 @@ element = {
 }
 
 ## Physique des materiaux ##
+
+
+## Formats papiers ##
+
+A4 = (297,210) #en mm
