@@ -1,3 +1,9 @@
+## Constantes mathématiques ##
+
+pi = 3.14158 #Trouver une approx + fiable
+# e =
+# phi =
+
 ## Constantes universelles ##
 
 cl = 299792458 #Celerite de la lumiere en m/s

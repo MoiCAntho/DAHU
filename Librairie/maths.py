@@ -5,6 +5,7 @@
 ## Import des modules essentiels ##
 
 import giacpy as g
+from donnees import pi
 import erreurs as er
 import random as r
 
@@ -191,22 +192,22 @@ class Matrice :
                 else :
                     return True
     
+    ## Methodes ##
+
+    def dim(self): #Renvoie la dimension de la matrice !
+        return (self.nbl,self.nbc)
+
     def iscarree(self) : #Vérification qu'une matrice est carree
         if self.nbl == self.nbc :
             return True
         else :
             return False
-    
+
     def isinversible(self) : #Verification de l'inversibilite d'une matrice (A faire) !
         if self.iscarree() == True and self.det() != 0 :
             return True
         else :
             return False
-
-    ## Methodes ##
-
-    def dim(self): #Renvoie la dimension de la matrice !
-        return (self.nbl,self.nbc)
 
     def transposee(self) : #Retourne la transposee d'une matrice (faire les filtres)
         mat = Matrice(self.nbc,self.nbl)
@@ -224,11 +225,11 @@ class Matrice :
                 if i == j and self[i][j] == 0 :
                     for j in range(len(self[1])) :
                         if self[i][j] != 0 :
-                            self *= Matrice.mel_permutation_l(i,j,self.dim()[1])
+                            self *= mel_permutation_l(i,j,self.dim()[1])
                             p +=1
                 if i == j :
                     for k in range(1,self.dim()[0]-1) :
-                        self *= Matrice.mel_transvection_l(i,k,(-self[k][i])/self[i][j],self.dim()[1])
+                        self *= mel_transvection_l(i,k,(-self[k][i])/self[i][j],self.dim()[1])
         return (self,p)
 
     def det(self) : #Renvoie le determinant d'une matrice faire les filtres ! 
@@ -271,20 +272,11 @@ class Matrice :
         n = self.dim()
         pass
 
-    def Spectre(self): #Renvoie le spectre de la matrice si elle est diagonalisable (A faire) !
+    def Spectre(self) : #Renvoie le spectre de la matrice si elle est diagonalisable (A faire) !
         pass
 
-    ## Fonctions ##
-
-    def LignePlusGrand(matrice,col) : #Renvoie le numero de la ligne contenant le plus grand coefficient d'une colonne
-        nbl = matrice.dim()[0]
-        plusgrand = Fonction.abs(matrice[col][col])
-        lignePlusGrand = col
-        for ln in range(col+1,nbl) :
-            if Fonction.abs(matrice[ln][col]) > plusgrand :
-                plusgrand = Fonction.abs(matrice[ln][col])
-                lignePlusGrand = ln
-        return lignePlusGrand
+    def diago(self) :
+        pass
 
 class Vecteur(Matrice) :
 
@@ -475,7 +467,7 @@ def mat_creuse_1(ligne, colonne, valeur,n) : #Matrice creuse contenant 1 valeur 
     mat[ligne][colonne] = valeur
     return mat
 
- ## Attention pour utiliser les mel il faut poser la multiplication dans le bon sens mel*mat !! ##
+## Attention pour utiliser les mel il faut poser la multiplication dans le bon sens mel*mat !! ##
 
 def mel_permutation_l(ligne_1,ligne_2,n) : #Matrice elementaire de permutation de deux lignes (faire les filtres)
     mat = matriceid(n)
@@ -496,20 +488,20 @@ def mel_transvection_l(ligne_1,ligne_2,valeur,n) : #Matrice elementaire de trans
     print(mat)
     return mat
 
-    # def mel_permutation_c(colonne_1,colonne_2,n) : #A faire
-    #     pass
+# def mel_permutation_c(colonne_1,colonne_2,n) : #A faire
+#     pass
     
-    # def mel_dilatation_c(colonne,valeur,n) :
-    #     pass
+# def mel_dilatation_c(colonne,valeur,n) :
+#     pass
 
-    # def mel_transvection_c(colonne_1,colonne_2,valeur,n) :
-    #     pass
-
-
+# def mel_transvection_c(colonne_1,colonne_2,valeur,n) :
+#     pass
 
 
 ## Fonctions de Calcul algebrique ##
 
+def taylor(expr,var,pt,ordre) :
+    pass
 
 ## Fonctions Arithmétiques ##
 

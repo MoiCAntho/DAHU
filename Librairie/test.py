@@ -9,3 +9,8 @@ from graph import param
 # print(b.int("t").simp())
 
 # param(a,b,"t")
+
+a = ma.randomatrice(3,3)
+print(a)
+b = a.pivots()
+print (b)
