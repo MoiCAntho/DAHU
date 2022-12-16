@@ -45,12 +45,14 @@ class Expression :
         return self
 
     def subs(self,var_1,var_2) :
-        a = str(self.sexpr)
+        a = self.sexpr
         b = a.replace(str(var_1),str(var_2))
         return b
     
     def eval(self,var,val) :
-        return float(g.giac(self.subs(var,val)))
+        a = self.subs(var,val)
+        b = g.giac(a)
+        return float(b)
     
     ## Calcul infinitesimal : derivees, integrales, limites ...##
 
@@ -514,10 +516,12 @@ def PPCM(nb_1,nb_2) :
 def eratostene(n) :
     pass
 
-def frange(start,stop,step): #Faire les filtres
+def segme(start,stop,step): #Faire les filtres
     f = []
     f.append(start)
-    while start != stop :
+    while start != stop or start < stop :
         start += step
+        if start > stop :
+            break
         f.append(start)
     return f
