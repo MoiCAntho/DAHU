@@ -15,6 +15,8 @@ print(f.deriv("t").simp())
 # print(b.int("t").simp())
 
 c = Graph()
+c.absaxe(fixe=True,pt = 0)
+c.ordaxes(fixe=True,pt=0)
 c.param(e,f,"t",nbpts=100)
 # c.chmptan(d,"xy",[-10,10],[-10,10],1)
 c.show()

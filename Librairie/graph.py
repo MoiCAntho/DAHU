@@ -1,19 +1,22 @@
-import matplotlib.pyplot as plt
+import bokeh.plotting as bplt
 from numpy import linspace
 from maths import Expression, segme
 
 class Graph :
     def __init__(self) :
-        self.fig,self.ax = plt.subplots()
+        self.graph = bplt.figure()
 
-    def absaxe(self) :
+    def absaxe(self,fixe = False,pt = 0) :
+        if fixe == True :
+            self.graph.xaxis.fixed_location = pt
         pass
 
-    def ordaxes(self) :
-        pass
+    def ordaxes(self,fixe = False,pt = 0) :
+        if fixe == True :
+            self.graph.yaxis.fixed_location = pt
 
     def param(self,X,Y,param,inter=[-10,10],nbpts=10000) :
-        a = self.ax
+        a = self.graph
         t = []
         for i in linspace(inter[0],inter[1],nbpts) :
             t.append(i)
@@ -22,7 +25,9 @@ class Graph :
         for i in t :
             x.append(X.eval(param,i))
             y.append(Y.eval(param,i))
-        a.plot(x,y)
+        print(x)
+        print(y)
+        a.line(x,y)
 
     def polar(self,r,param) :
         pass
@@ -39,7 +44,7 @@ class Graph :
     #             a.quiver(g["x"][i],g["y"][j],b,c)
 
     def show(self) :
-        plt.show()
+        bplt.show(self.graph)
 
 
 

@@ -17,6 +17,8 @@ class Expression :
         self.c = {"var" : var ,"cte" : cte}
         self.Expr = g.giac(expr)
         self.sexpr = str(self.Expr)
+        self.derivs = []
+        self.ints = []
 
     def __getitem__(self,index) :
         return self.Expr[index]
@@ -59,12 +61,14 @@ class Expression :
     def deriv(self,var) : 
         self.Expr = g.diff(self.Expr,var)
         self.sexpr = str(self.Expr)
+        self.derivs.append(self.sexpr)
         return self
     
     def int(self,var,a=None,b=None):
         if a == None and b == None :
             self.Expr = g.int(self.Expr,var)
             self.sexpr = str(self.Expr)
+            self.ints.append(self.sexpr)
             return self
         else :
             pass
@@ -74,6 +78,11 @@ class Expression :
         self.Expr = g.simplify(self.Expr)
         self.sexpr = str(self.Expr)
         return self
+
+    def sucderiv(self,var,nb) :
+        for i in range(nb) :
+            self.deriv(var)
+
 
 ## Definitions d'objets mathématiques généraux ##
 
@@ -503,7 +512,7 @@ def mel_transvection_l(ligne_1,ligne_2,valeur,n) : #Matrice elementaire de trans
 ## Fonctions de Calcul algebrique ##
 
 def taylor(expr,var,pt,ordre) :
-    pass
+    expr.sucderiv(var,ordre)
 
 ## Fonctions Arithmétiques ##
 
