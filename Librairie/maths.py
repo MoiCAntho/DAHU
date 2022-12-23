@@ -60,16 +60,16 @@ class Expression :
 
     def deriv(self,var) : 
         self.Expr = g.diff(self.Expr,var)
-        self.sexpr = str(self.Expr)
-        self.derivs.append(self.sexpr)
-        return self
+        self.derivs.append(str(self.Expr))
+        derivexpr = Expression(str(self.Expr),var=self.c)
+        return derivexpr
     
     def int(self,var,a=None,b=None):
         if a == None and b == None :
             self.Expr = g.int(self.Expr,var)
-            self.sexpr = str(self.Expr)
-            self.ints.append(self.sexpr)
-            return self
+            self.ints.append(str(self.Expr))
+            intexpr = Expression(str(self.Expr),var=self.c)
+            return intexpr
         else :
             pass
             #return g.int(self.Expr,var,a,b)
