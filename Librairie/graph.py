@@ -4,7 +4,9 @@ from maths import Expression, segme
 
 class Graph :
     def __init__(self) :
-        self.graph = bplt.figure()
+        self.graph = bplt.figure(x_axis_label='x', y_axis_label='y',
+           x_range=(-10, 10), y_range=(-10, 10),
+           aspect_ratio=1)
 
     def absaxe(self,fixe = False,pt = 0) :
         if fixe == True :
@@ -24,9 +26,7 @@ class Graph :
         y = []
         for i in t :
             x.append(X.eval(param,i))
-            y.append(Y.eval(param,i))
-        print(x)
-        print(y)
+            y.append(Y.eval(param,i)) 
         a.line(x,y)
 
     def polar(self,r,param) :

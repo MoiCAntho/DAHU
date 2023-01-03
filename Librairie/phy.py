@@ -10,3 +10,6 @@ import erreurs as er
 
 def extractp(chemin):
     df = main.importdata(chemin)
+
+def diagenthal() :
+    pass

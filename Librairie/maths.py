@@ -9,7 +9,7 @@ from donnees import pi
 import erreurs as er
 import random as r
 
-# Utilisation de Giac pour gestion des variables et des expressions et autres pitits trucs ##
+# Utilisation de Giac pour gestion des variables et des expressions et autres pitits trucs #
 
 class Expression :
 
@@ -83,6 +83,15 @@ class Expression :
         for i in range(nb) :
             self.deriv(var)
 
+    def jaco(self):
+        jac = Matrice(1,len(self.c["var"])+1)
+        for i in range(len(self.c["var"])) :
+            jac[1][i] = self.deriv(self.c["var"])
+        self.deriv.append(jac)
+        return jac
+
+    def hesse(self,ordre): #Renvoie la matrice hessienne d'une fonction ! faire les filtres
+        pass
 
 ## Definitions d'objets mathématiques généraux ##
 
