@@ -34,9 +34,6 @@ from graph import Graph
 # print(b)
 # print(h)
 
-f = ma.Expression("e^(x^2-y)*(5-2*x+y)",var=["x","y"])
-a = f.jaco()
-print(f.deriv("x").simp())
-print(f.deriv(""))
-print(f.jaco())
-print(ma.randomatrice(3,3))
+# f = ma.Expression("e^(x^2-y)*(5-2*x+y)",var=["x","y"])
+# a = f.jaco()
+# print(f.jaco())

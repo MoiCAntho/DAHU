@@ -59,9 +59,9 @@ class Expression :
     ## Calcul infinitesimal : derivees, integrales, limites ...##
 
     def deriv(self,var) : 
-        self.Expr = g.diff(self.Expr,var)
-        self.derivs.append(str(self.Expr))
-        derivexpr = Expression(str(self.Expr),var=self.c)
+        expr1 = g.diff(self.Expr,var)
+        self.derivs.append(str(expr1))
+        derivexpr = Expression(str(expr1),var=self.c)
         return derivexpr
     
     def int(self,var,a=None,b=None):
@@ -72,7 +72,6 @@ class Expression :
             return intexpr
         else :
             pass
-            #return g.int(self.Expr,var,a,b)
 
     def simp(self) :
         self.Expr = g.simplify(self.Expr)
@@ -83,7 +82,7 @@ class Expression :
         for i in range(nb) :
             self.deriv(var)
 
-    def jaco(self): #Défini pour un champ scalaire
+    def jaco(self): #Défini que pour un champ scalaire
         jac = Matrice(len(self.c["var"]),1)
         for i in range(len(self.c["var"])) :
             jac[i][0] = self.deriv(self.c["var"][i]).simp()
