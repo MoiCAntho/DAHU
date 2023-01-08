@@ -83,11 +83,11 @@ class Expression :
         for i in range(nb) :
             self.deriv(var)
 
-    def jaco(self):
-        jac = Matrice(1,len(self.c["var"])+1)
+    def jaco(self): #Défini pour un champ scalaire
+        jac = Matrice(len(self.c["var"]),1)
         for i in range(len(self.c["var"])) :
-            jac[1][i] = self.deriv(self.c["var"])
-        self.deriv.append(jac)
+            jac[i][0] = self.deriv(self.c["var"][i]).simp()
+        self.derivs.append(jac)
         return jac
 
     def hesse(self,ordre): #Renvoie la matrice hessienne d'une fonction ! faire les filtres
@@ -114,11 +114,19 @@ class Matrice :
             er.Error_1()
     
     def __repr__(self) : #Representation lors de l'utilisation de print()
-        c = self.nbc
         l = self.nbl
         chr = ""
-        for i in self.Matrice :
-            chr += str(i)+"\n"
+        for i in range(l) :
+            if i != 0 :
+                chr += "\n"
+            chr += "[ "
+            cpt =0
+            for j in self.Matrice[i] :
+                chr += str(j)
+                cpt += 1
+                if cpt != len(self.Matrice[i]) :
+                    chr += " , "
+            chr += " ]"
         return chr
     
     def __getitem__(self,index) :  #Retourne un element de la matrice
