@@ -17,6 +17,14 @@ class Graph :
         if fixe == True :
             self.graph.yaxis.fixed_location = pt
 
+    def fgraph(self,expr,param,inter=[-10,10],nbpts=10000) :
+        a = self.graph
+        y = []
+        x = linspace(inter[0],inter[1],nbpts)
+        for i in x :
+            y.append(expr.eval(param,i))
+        a.line(x,y)
+
     def param(self,X,Y,param,inter=[-10,10],nbpts=10000) :
         a = self.graph
         t = []
@@ -26,7 +34,10 @@ class Graph :
         y = []
         for i in t :
             x.append(X.eval(param,i))
-            y.append(Y.eval(param,i)) 
+            y.append(Y.eval(param,i))
+        print(t)
+        print(x)
+        print(y)
         a.line(x,y)
 
     def polar(self,r,param) :

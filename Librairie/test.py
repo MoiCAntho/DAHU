@@ -17,8 +17,8 @@ from graph import Graph
 # c = Graph()
 # c.absaxe(fixe=True,pt = 0)
 # c.ordaxes(fixe=True,pt=0)
-# c.param(e,f,"t",inter=[-100,100])
-# c.chmptan(d,"xy",[-10,10],[-10,10],1)
+# c.param(e,f,"t",inter=[-100,100],nbpts=25)
+# #c.chmptan(d,"xy",[-10,10],[-10,10],1)
 # c.show()
 
 # a = ma.randomatrice(3,3)
