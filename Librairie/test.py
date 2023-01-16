@@ -34,6 +34,6 @@ from graph import Graph
 # print(b)
 # print(h)
 
-# f = ma.Expression("e^(x^2-y)*(5-2*x+y)",var=["x","y"])
-# a = f.jaco()
-# print(f.jaco())
+f = ma.Expression("e^(x^2-y)*(5-2*x+y)",var=["x","y"])
+a = f.lim("x","+infinity")
+print(a)

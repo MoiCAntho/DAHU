@@ -92,6 +92,11 @@ class Expression :
     def hesse(self,ordre): #Renvoie la matrice hessienne d'une fonction ! faire les filtres
         pass
 
+    def lim(self,var,val):
+        lim = g.limit(self.Expr,var,g.giac(val))
+        lim = str(lim)
+        return lim
+
 ## Definitions d'objets mathématiques généraux ##
 
 class Matrice :
@@ -389,6 +394,9 @@ class Complexe :
 class Fonction(Expression) :
     def __init__(self,nom,expr,var) :
         self.Fonction = {"{}".format(nom) : expr, "var" : var}
+        self.df = [] #Liste d'intervalles ou 1 intervalle (domaine de def)
+        self.lim = [] #Liste des limites associées aux valeurs limval
+        self.limval = []
 
     ## Definition des fonction usuelles ##
     def sqrt(val = None) :
