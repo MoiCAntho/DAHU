@@ -1,0 +1,25 @@
+Metadata-Version: 2.1
+Name: DAHU
+Version: 0.0.0
+Summary: Package de calcul formel (pour l'instant ;=) )
+Home-page: https://github.com/MoiCAntho/DAHU
+Author: LOUVAT SEGURA Anthony, CHEMINOT Virgile
+Project-URL: Homepage, https://github.com/MoiCAntho/DAHU
+Project-URL: Bug Tracker, https://github.com/MoiCAntho/DAHU/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+############################################ DAHU.py #####################################################
+
+Auteurs : 
+    - LOUVAT SEGURA Anthony
+    - CHEMINOT Virgile
+
+Nous souhaitons dans un premier temps remercier tous particulièrement notre professeur de mathématiques : Bernard Parisse, sans qui le projet ne serait pas là où il en est actuellement (faites un tour sur sa page personnel de l'université joseph fourrier).
+Il a nous permis d'utiliser sa création : le CAS Giac, sur qui est basé toute la gestion d'expression du module.
+
+DAHU est une librairie python destiné aux étudiants et scientifiques, qui contient beaucoup de fonction leurs étant utile.

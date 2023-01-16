@@ -101,6 +101,7 @@ class Expression :
 
 class Matrice :
     """Classe permettant de creer et manipuler les matrices"""
+    
     ## Definition des fonctions elementaires et operations de la classe ##
 
     def __init__(self,nbl,nbc) : #Initialise une matrice (genere la matrice nulle)

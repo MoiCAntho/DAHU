@@ -1,0 +1,17 @@
+LICENSE
+pyproject.toml
+setup.py
+DAHU.egg-info/PKG-INFO
+DAHU.egg-info/SOURCES.txt
+DAHU.egg-info/dependency_links.txt
+DAHU.egg-info/requires.txt
+DAHU.egg-info/top_level.txt
+src/__init__.py
+src/donnees.py
+src/erreurs.py
+src/graph.py
+src/main.py
+src/maths.py
+src/meca.py
+src/papiers.py
+src/phy.py
