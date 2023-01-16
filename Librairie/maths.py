@@ -82,17 +82,17 @@ class Expression :
         for i in range(nb) :
             self.deriv(var)
 
-    def jaco(self): #Défini que pour un champ scalaire
+    def jaco(self): #Défini que pour un champ scalaire (faire les filtres)
         jac = Matrice(len(self.c["var"]),1)
         for i in range(len(self.c["var"])) :
             jac[i][0] = self.deriv(self.c["var"][i]).simp()
         self.derivs.append(jac)
         return jac
 
-    def hesse(self,ordre): #Renvoie la matrice hessienne d'une fonction ! faire les filtres
+    def hesse(self,ordre): #Renvoie la matrice hessienne d'une fonction ! (faire les filtres)
         pass
 
-    def lim(self,var,val):
+    def lim(self,var,val): #Renvoie la limite d'une fonction en une valeur (faire les filtres)
         lim = g.limit(self.Expr,var,g.giac(val))
         lim = str(lim)
         return lim
