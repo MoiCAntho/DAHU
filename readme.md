@@ -1,4 +1,4 @@
-[center] # DAHU.py [\center]
+<center> # DAHU.py <\center>
 ***
 
 
