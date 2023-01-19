@@ -422,6 +422,12 @@ class Fonction(Expression) :
             a = val**2
             b = Fonction.sqrt(a)
             return b
+    
+    def etude() :
+        pass
+
+    def param() :
+        pass
 
 class Polynôme :
     def __init__(self):
