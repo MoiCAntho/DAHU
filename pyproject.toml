@@ -1,6 +1,6 @@
-[build-systeme]
-requires = ["hatching","wheel","giacpy"]
-build-backend = "hatching.build"
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "DAHU"
