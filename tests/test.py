@@ -1,5 +1,5 @@
-import maths as ma
-from graph import Graph
+import DAHU.maths as ma
+from src.graph import Graph
 
 # a = ma.Expression("2t+3",var="t")
 # b = ma.Expression("4t^3+6t", var="t")
@@ -34,6 +34,9 @@ from graph import Graph
 # print(b)
 # print(h)
 
-f = ma.Expression("e^(x^2-y)*(5-2*x+y)",var=["x","y"])
-a = f.lim("x","+infinity")
-print(a)
+# f = ma.Expression("e^(x^2-y)*(5-2*x+y)",var=["x","y"])
+# a = f.lim("x","+infinity")
+# print(a)
+
+a = ma.matrice123(3,3)
+a.triangsup()

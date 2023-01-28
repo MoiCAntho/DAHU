@@ -282,9 +282,8 @@ class Matrice :
         cpt2 = 0
         for col in range(nbc) :
             a = self[col][col]
-            for i in range(nbc) :
-                self[cpt1][col] /= a
-            cpt1 += 1
+            for i in range(nbl) :
+                self[i][col] /= a
             for lig in range(nbl) :
                 if col != lig :
                     b = self
