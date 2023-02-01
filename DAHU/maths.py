@@ -275,6 +275,18 @@ class Matrice :
                 for col in range(self.nbc) :
                     pass
 
+
+    def tranvesction_lig(self,ligne_1,ligne_2,valeur) : #Transvecte une ligne avec une autre d'une certaine valeur (faire les filtres) !
+        n = self.dim()
+        a = mel_transvection(ligne_1,ligne_2,valeur,n[1])
+        return a*self
+
+    def tranvesction_col(self,ligne_1,ligne_2,valeur) : #Transvecte une colonne avec une autre d'une certaine valeur (faire les filtres) !
+        n = self.dim()
+        a = mel_transvection(ligne_1,ligne_2,valeur,n[1])
+        return self*a
+
+
     def triangsup(self) : #finir et faire les autres matrices elementaires pour col et ligne/colo
         nbl = self.nbl
         nbc = self.nbc
@@ -287,7 +299,7 @@ class Matrice :
             for lig in range(nbl) :
                 if col != lig :
                     b = self
-                    self = mel_transvection_l(lig,cpt1,-self[cpt1][col],self.dim()[1])*b
+                    self = self.tranvesction_lig(lig,cpt1,-self[cpt1][col])
                     print(self)
         return self
 
@@ -510,13 +522,13 @@ def mat_creuse_1(ligne, colonne, valeur,n) : #Matrice creuse contenant 1 valeur 
 
 ## Attention pour utiliser les mel il faut poser la multiplication dans le bon sens mel*mat !! ##
 
-def mel_permutation_l(ligne_1,ligne_2,n) : #Matrice elementaire de permutation de deux lignes (faire les filtres)
+def mel_permutation(ligne_1,ligne_2,n) : #Matrice elementaire de permutation de deux lignes (faire les filtres)
     mat = matriceid(n)
     for col in range(n) : 
         mat[ligne_1 -1][col], mat[ligne_2 -1][col] = mat[ligne_2 -1][col], mat[ligne_1 -1][col]
     return mat
 
-def mel_dilatation_l(ligne,valeur,n) : #Matrice elementaire de dilatation d'une ligne (faire les filtres)
+def mel_dilatation(ligne,valeur,n) : #Matrice elementaire de dilatation d'une ligne (faire les filtres)
     mat = matriceid(n)
     for i in range(n) :
         if i == ligne-1 :
@@ -524,20 +536,10 @@ def mel_dilatation_l(ligne,valeur,n) : #Matrice elementaire de dilatation d'une 
                 mat[i][j] *= valeur
     return mat
 
-def mel_transvection_l(ligne_1,ligne_2,valeur,n) : #Matrice elementaire de transvections de 2 lignes (l1 prend la valeur de l1-valeur*l2) (faire les filtres) !
-    mat = matriceid(n)+valeur*mat_creuse_1(ligne_1-1,ligne_2-1,1,n)
-    print(mat)
+def mel_transvection(ligne_1,ligne_2,valeur,n) : #Matrice elementaire de transvections de 2 lignes (l1 prend la valeur de l1-valeur*l2) (faire les filtres) !
+    a = valeur*mat_creuse_1(ligne_1-1,ligne_2-1,1,n)
+    mat = matriceid(n) +  a
     return mat
-
-# def mel_permutation_c(colonne_1,colonne_2,n) : #A faire
-#     pass
-    
-# def mel_dilatation_c(colonne,valeur,n) :
-#     pass
-
-# def mel_transvection_c(colonne_1,colonne_2,valeur,n) :
-#     pass
-
 
 ## Fonctions de Calcul algebrique ##
 

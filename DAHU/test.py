@@ -1,5 +1,4 @@
-import DAHU.maths as ma
-from src.graph import Graph
+import maths as ma
 
 # a = ma.Expression("2t+3",var="t")
 # b = ma.Expression("4t^3+6t", var="t")
@@ -38,5 +37,9 @@ from src.graph import Graph
 # a = f.lim("x","+infinity")
 # print(a)
 
-a = ma.matrice123(3,3)
+a = ma.matrice123(5,5)
+print(a)
+# b = ma.(2,4,-2,5)
+# print(b*a)
 a.triangsup()
+print(a)
