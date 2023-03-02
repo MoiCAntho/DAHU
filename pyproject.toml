@@ -3,8 +3,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "DAHU"
-version = "0.0.0"
+name = "DAHU12"
+version = "0.0.0.0.0"
 authors = [
   { name="LOUVAT SEGURA Anthony"},
   { name="CHEMINOT Virgile" },
