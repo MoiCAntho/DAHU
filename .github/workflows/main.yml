@@ -27,7 +27,7 @@ jobs:
         --outdir dist/
         .
     - name: Publish distribution 📦 to Test PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
+      uses: pypa/gh-action-pypi-publish@release/v1 --verbose
       with:
         password: ${{ secrets.DAHU_UPLOAD }}
         repository_url: https://test.pypi.org/legacy/
