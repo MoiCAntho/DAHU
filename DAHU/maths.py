@@ -4,7 +4,7 @@
 
 ## Import des modules essentiels ##
 
-import giacpy as g
+import giacpy
 from donnees import pi
 import erreurs as er
 import random as r
@@ -15,7 +15,7 @@ class Expression :
 
     def __init__(self,expr,var,cte = None) : #Création d'une expression à l'aide d'un str (Faire les filtres) !
         self.c = {"var" : var ,"cte" : cte}
-        self.Expr = g.giac(expr)
+        self.Expr = giacpy.giac(expr)
         self.sexpr = str(self.Expr)
         self.derivs = []
         self.ints = []
@@ -39,8 +39,8 @@ class Expression :
     def __add__(self,autre) :
         a = self.sexpr
         b = autre.sexpr
-        a = g.giac(a)
-        b = g.giac(b)
+        a = giacpy.giac(a)
+        b = giacpy.giac(b)
         c = a + b
         self.Expr = c
         self.sexpr = str(c)
@@ -53,20 +53,20 @@ class Expression :
     
     def eval(self,var,val) :
         a = self.subs(var,val)
-        b = g.giac(a)
+        b = giacpy.giac(a)
         return float(b)
     
     ## Calcul infinitesimal : derivees, integrales, limites ...##
 
     def deriv(self,var) : 
-        expr1 = g.diff(self.Expr,var)
+        expr1 = giacpy.diff(self.Expr,var)
         self.derivs.append(str(expr1))
         derivexpr = Expression(str(expr1),var=self.c)
         return derivexpr
     
     def int(self,var,a=None,b=None):
         if a == None and b == None :
-            self.Expr = g.int(self.Expr,var)
+            self.Expr = giacpy.int(self.Expr,var)
             self.ints.append(str(self.Expr))
             intexpr = Expression(str(self.Expr),var=self.c)
             return intexpr
@@ -74,7 +74,7 @@ class Expression :
             pass
 
     def simp(self) :
-        self.Expr = g.simplify(self.Expr)
+        self.Expr = giacpy.simplify(self.Expr)
         self.sexpr = str(self.Expr)
         return self
 
@@ -93,7 +93,7 @@ class Expression :
         pass
 
     def lim(self,var,val): #Renvoie la limite d'une fonction en une valeur (faire les filtres)
-        lim = g.limit(self.Expr,var,g.giac(val))
+        lim = giacpy.limit(self.Expr,var,giacpy.giac(val))
         lim = str(lim)
         return lim
 
@@ -203,9 +203,11 @@ class Matrice :
         else :
             er.Error_6()
 
-    def __rmul__(self,autre) : #Commutativite de la multiplication par un scalaire (faire les filtres)
+    def __rmul__(autre,self) : #Commutativite de la multiplication par un scalaire (faire les filtres)
         if isinstance(autre,int) :
             return self*autre
+        if isinstance(autre,Matrice):
+            return autre*self
 
     def __imul__(self,autre) : #Utilisation de l'operateur *= !
         return self * autre
@@ -300,7 +302,6 @@ class Matrice :
                 if col != lig :
                     b = self
                     self = self.tranvesction_lig(lig,cpt1,-self[cpt1][col])
-                    print(self)
         return self
 
     def comatrice(self) : #Retourne la matrice de cofacteur d'une matrice (A faire) !
@@ -537,24 +538,28 @@ def mel_dilatation(ligne,valeur,n) : #Matrice elementaire de dilatation d'une li
     return mat
 
 def mel_transvection(ligne_1,ligne_2,valeur,n) : #Matrice elementaire de transvections de 2 lignes (l1 prend la valeur de l1-valeur*l2) (faire les filtres) !
-    a = valeur*mat_creuse_1(ligne_1-1,ligne_2-1,1,n)
+    a = valeur * mat_creuse_1(ligne_1-1,ligne_2-1,1,n)
     mat = matriceid(n) +  a
     return mat
 
+
 ## Fonctions de Calcul algebrique ##
+
 
 def taylor(expr,var,pt,ordre) :
     expr.sucderiv(var,ordre)
 
+
 ## Fonctions Arithmétiques ##
 
-def PGCD(nb_1,nb_2) :
+
+def PGCD(nb_1,nb_2) : #Renvoie le plus grand diviseur commun de deux nombres
     pass
 
-def PPCM(nb_1,nb_2) :
+def PPCM(nb_1,nb_2) : #Renvoie le plus petit commun multiple de deux nombres
     pass
 
-def eratostene(n) :
+def eratostene(n) : #Renvoie une liste contenant tous les nombres premier de 1 jusqu'a n par le crible d'eratostene
     pass
 
 def segme(start,stop,step): #Faire les filtres

@@ -39,7 +39,6 @@ import maths as ma
 
 a = ma.matrice123(5,5)
 print(a)
-# b = ma.(2,4,-2,5)
-# print(b*a)
-# a.triangsup()
-# print(a)
+print("\n")
+a.triangsup()
+print(a)
