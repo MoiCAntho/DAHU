@@ -323,6 +323,17 @@ class Matrice :
     def diago(self) :
         pass
 
+    def ker(self) :
+        pass
+
+    def tr(self) :
+        a = 0
+        for lig in range(self.nbl) :
+            for col in range(self.nbc) :
+                if col == lig :
+                    a += self[lig][col]
+        return a
+
 class Vecteur(Matrice) :
 
     def __init__(self,n) : #Initialisation d'un vecteur (genere le vecteur nul)
