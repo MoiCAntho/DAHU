@@ -11,4 +11,4 @@ Il a nous permis d'utiliser sa création : le CAS Giac, sur qui est basé toute 
 
 DAHU est une librairie python destiné aux étudiants et scientifiques, qui contient beaucoup de fonction leurs étant utile.
 
-Installation provisoir : https://pypi.org/project/DAHU12/
+Installation provisoire : https://pypi.org/project/DAHU12/
