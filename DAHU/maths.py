@@ -89,7 +89,7 @@ class Expression :
         self.derivs.append(jac)
         return jac
 
-    def hesse(self,ordre): #Renvoie la matrice hessienne d'une fonction ! (faire les filtres)
+    def hessi(self,ordre): #Renvoie la matrice hessienne d'une fonction ! (faire les filtres)
         pass
 
     def lim(self,var,val): #Renvoie la limite d'une fonction en une valeur (faire les filtres)
@@ -293,15 +293,18 @@ class Matrice :
         nbl = self.nbl
         nbc = self.nbc
         cpt1 = 0
-        cpt2 = 0
         for col in range(nbc) :
             a = self[col][col]
-            for i in range(nbl) :
-                self[i][col] /= a
+            print(a)
             for lig in range(nbl) :
+                self[lig][col] /= a
                 if col != lig :
                     b = self
-                    self = self.tranvesction_lig(lig,cpt1,-self[cpt1][col])
+                    print(cpt1)
+                    print(col)
+                    self = self.tranvesction_lig(lig,cpt1,-(self[cpt1][col]))
+                    cpt1+=1
+                    break
         return self
 
     def comatrice(self) : #Retourne la matrice de cofacteur d'une matrice (A faire) !
