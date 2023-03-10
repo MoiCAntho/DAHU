@@ -302,7 +302,9 @@ class Matrice :
                     b = self
                     print(cpt1)
                     print(col)
-                    self = self.tranvesction_lig(lig,cpt1,-(self[cpt1][col]))
+                    b = self.tranvesction_lig(lig,cpt1,-(self[cpt1][col]))
+                    print(b)
+                    self = b*self
                     cpt1+=1
                     break
         return self
@@ -552,7 +554,7 @@ def mel_dilatation(ligne,valeur,n) : #Matrice elementaire de dilatation d'une li
     return mat
 
 def mel_transvection(ligne_1,ligne_2,valeur,n) : #Matrice elementaire de transvections de 2 lignes (l1 prend la valeur de l1-valeur*l2) (faire les filtres) !
-    a = valeur * mat_creuse_1(ligne_1-1,ligne_2-1,1,n)
+    a = valeur * mat_creuse_1(ligne_2-1,ligne_1-1,1,n)
     mat = matriceid(n) +  a
     return mat
 
