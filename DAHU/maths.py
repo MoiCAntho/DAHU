@@ -229,6 +229,7 @@ class Matrice :
     
     def giac_convert(self) :
         return giacpy.giac(self.Matrice)
+
     ## Methodes ##
 
     def dim(self): #Renvoie la dimension de la matrice !
@@ -300,6 +301,12 @@ class Matrice :
 
     def gauss_jordan(self) : #Met la matrice sous forme echelon reduite (A faire) !
         n = self.dim()
+        pass
+
+    def eigenval(self) :
+        pass
+
+    def eigenvec(self) :
         pass
 
     def Spectre(self) : #Renvoie le spectre de la matrice si elle est diagonalisable (A faire) !
@@ -434,8 +441,7 @@ class Fonction(Expression) :
     def etude() :
         pass
 
-    def param() :
-        pass
+    ## Définition des différents types de fonctions
 
 class Polynôme :
     def __init__(self):
