@@ -21,7 +21,7 @@ import maths as ma
 # c.show()
 
 # a = ma.randomatrice(3,3)
-# print(a)
+# print(a) 
 # b = a.pivots()
 # print (b)
 
@@ -37,11 +37,5 @@ import maths as ma
 # a = f.lim("x","+infinity")
 # print(a)
 
-b = ma.mel_transvection(1,5,-4,5)
-print(b)
-
 a = ma.matrice123(5,5)
-print(a)
-print("\n")
-a.triangsup()
-print(b*a)
+print(a.det())

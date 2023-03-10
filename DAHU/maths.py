@@ -227,6 +227,8 @@ class Matrice :
                 else :
                     return True
     
+    def giac_convert(self) :
+        return giacpy.giac(self.Matrice)
     ## Methodes ##
 
     def dim(self): #Renvoie la dimension de la matrice !
@@ -260,11 +262,11 @@ class Matrice :
                 if i == j and self[i][j] == 0 :
                     for j in range(len(self[1])) :
                         if self[i][j] != 0 :
-                            self *= mel_permutation_l(i,j,self.dim()[1])
+                            self = self.permutation_lig(i,j,self.dim()[1])
                             p +=1
                 if i == j :
                     for k in range(1,self.dim()[0]-1) :
-                        self *= mel_transvection_l(i,k,(-self[k][i])/self[i][j],self.dim()[1])
+                        self = self.transvection_lig(i,k,(-self[k][i])/self[i][j],self.dim()[1])
         return (self,p)
 
     def det(self) : #Renvoie le determinant d'une matrice faire les filtres ! 
@@ -273,10 +275,9 @@ class Matrice :
                 det = self[0][0]*self[1][1] - self[0][1]*self[1][0]
                 return det
             else :
-                det = 1
-                for col in range(self.nbc) :
-                    pass
-
+                a = self.giac_convert()
+                det = giacpy.det(a)
+                return det
 
     def tranvesction_lig(self,ligne_1,ligne_2,valeur) : #Transvecte une ligne avec une autre d'une certaine valeur (faire les filtres) !
         n = self.dim()
@@ -287,27 +288,6 @@ class Matrice :
         n = self.dim()
         a = mel_transvection(ligne_1,ligne_2,valeur,n[1])
         return self*a
-
-
-    def triangsup(self) : #finir et faire les autres matrices elementaires pour col et ligne/colo
-        nbl = self.nbl
-        nbc = self.nbc
-        cpt1 = 0
-        for col in range(nbc) :
-            a = self[col][col]
-            print(a)
-            for lig in range(nbl) :
-                self[lig][col] /= a
-                if col != lig :
-                    b = self
-                    print(cpt1)
-                    print(col)
-                    b = self.tranvesction_lig(lig,cpt1,-(self[cpt1][col]))
-                    print(b)
-                    self = b*self
-                    cpt1+=1
-                    break
-        return self
 
     def comatrice(self) : #Retourne la matrice de cofacteur d'une matrice (A faire) !
         pass
@@ -416,7 +396,7 @@ class Complexe :
             self.th = 0
         elif self.a == 0 and self.b != 0 :
             self.r = self.b
-            self.th = math.pi/2
+            self.th = pi/2
         return (self.r, self.th)
         pass
 
@@ -554,7 +534,7 @@ def mel_dilatation(ligne,valeur,n) : #Matrice elementaire de dilatation d'une li
     return mat
 
 def mel_transvection(ligne_1,ligne_2,valeur,n) : #Matrice elementaire de transvections de 2 lignes (l1 prend la valeur de l1-valeur*l2) (faire les filtres) !
-    a = valeur * mat_creuse_1(ligne_2-1,ligne_1-1,1,n)
+    a = valeur * mat_creuse_1(ligne_2,ligne_1,1,n)
     mat = matriceid(n) +  a
     return mat
 
