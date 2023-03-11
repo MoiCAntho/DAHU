@@ -416,12 +416,7 @@ class Fonction(Expression) :
 
     ## Definition des fonction usuelles ##
     def sqrt(val = None) :
-        if val != None  :
-            cpt = 0
-            a = math.floor(val)
-            while cpt < 100 :
-                a = (a+(val)/a)/2
-            return a
+        pass
 
     def ln() :
         pass
