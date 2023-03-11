@@ -11,6 +11,8 @@ import random as r
 
 # Utilisation de Giac pour gestion des variables et des expressions et autres pitits trucs #
 
+## Definitions d'objets mathématiques généraux ##
+
 class Expression :
 
     def __init__(self,expr,var,cte = None) : #Création d'une expression à l'aide d'un str (Faire les filtres) !
@@ -96,8 +98,6 @@ class Expression :
         lim = giacpy.limit(self.Expr,var,giacpy.giac(val))
         lim = str(lim)
         return lim
-
-## Definitions d'objets mathématiques généraux ##
 
 class Matrice :
     """Classe permettant de creer et manipuler les matrices"""
@@ -215,8 +215,17 @@ class Matrice :
     def __div__(self,autre) : #Division nécessite la puissance (A faire) :
         pass
 
-    def __pow__(self) : #Mise à la puissance (A faire, necessite la def de l'inverse) !
-        pass
+    def __pow__(self,pui) : #Mise à la puissance (A finir, necessite la def de l'inverse) !
+        if pui == 0 :
+            if self.dim()[0] < self.dim()[1] :
+                n = self.dim()[0]
+            else :
+                n = self.dim()[1]
+            return matriceid(n)
+        if pui > 0 :
+            pass
+        if pui < 0:
+            pass
 
     def __eq__(self,autre) : #Verification de l'egalite (faire les filtres) !
         # + Verification matrice meme dimension
@@ -304,7 +313,11 @@ class Matrice :
         pass
 
     def eigenval(self) :
-        pass
+        #Vérification matrice carrée
+        for i in range(self.dim()[0]) :
+            self[i][i] = Expression(str(self[i][i])+"-t",var=["t"])
+        det = self.det()
+        # Définir résolution polynomiale pour résolution det(A)=0
 
     def eigenvec(self) :
         pass
@@ -569,7 +582,17 @@ def segme(start,stop,step): #Faire les filtres
         f.append(start)
     return f
 
-## Autres
+
+## Analyse numérique
+
+def regr() : #Regression linéaire, logarithmique, exponentielle ou puissance à partir de données
+    pass
+
+def MCNL () : #Curvefit avec la méthode des moindres carrées non linéaire
+    pass
+
+
+## Autres & vrac
 
 def red_gauss(q) :
     return giacpy.gauss(q.Expr,q.c["var"])

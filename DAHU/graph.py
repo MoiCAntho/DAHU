@@ -1,4 +1,5 @@
 import bokeh.plotting as bplt
+import matplotlib.pyplot as plt
 from numpy import linspace
 from maths import Expression, segme
 
