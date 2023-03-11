@@ -568,3 +568,12 @@ def segme(start,stop,step): #Faire les filtres
             break
         f.append(start)
     return f
+
+## Autres
+
+def red_gauss(q) :
+    return giacpy.gauss(q.Expr,q.c["var"])
+
+
+
+

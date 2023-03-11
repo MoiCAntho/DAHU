@@ -37,5 +37,5 @@ import maths as ma
 # a = f.lim("x","+infinity")
 # print(a)
 
-a = ma.matrice123(5,5)
-print(a.det())
+a = ma.Expression("x^2-2*x*y+5*y^2+4*y*z",var=["x","y","z"])
+print(ma.red_gauss(a))
