@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "DAHU12"
-version = "0.0.0.0.0"
+version = "test 0.0.0.0.1"
 authors = [
   { name="LOUVAT SEGURA Anthony"},
   { name="CHEMINOT Virgile" },
