@@ -5,7 +5,7 @@
 ## Import des modules essentiels ##
 
 import giacpy
-from donnees import pi
+import donnees
 import erreurs as er
 import random as r
 
@@ -416,7 +416,7 @@ class Complexe :
             self.th = 0
         elif self.a == 0 and self.b != 0 :
             self.r = self.b
-            self.th = pi/2
+            self.th = donnees.pi/2
         return (self.r, self.th)
         pass
 
