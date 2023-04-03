@@ -1,3 +1,8 @@
+## Donnees DAHU ##
+
+## Contient toutes les données, notamment les constantes, nécessaires au fonctionnement du package
+## ainsi que d'autres infos pouvant-être utiles
+
 ## Constantes mathématiques ##
 
 pi = 3.14158 #Trouver une approx + fiable
@@ -20,7 +25,7 @@ grav = (Gu*Mt)/(Rt**2) #Acceleration de pesanteur en m/s^2
 
 ## Donnees chimiques ##
 
-## 
+## Libellés des informations de notre mini tableau
 # Z : Numéro atomique
 # A : Nombre de masse en unité de masse atomique
 # E : Electronegativite##

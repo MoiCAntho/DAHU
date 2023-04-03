@@ -1,10 +1,46 @@
-## Erreurs module ##
+## Erreurs DAHU ##
 
-## -Refaire entièrement la gestion d'eereurs on y implementant les filtres
+## Gestion des erreurs du package.
+
+## -Refaire entièrement la gestion d'erreurs en y implementant les filtres
 # -Utiliser le module inspect qui permet d'introspecter le code et permet notamment de
 # recuperer le numero de la ligne en cours d'execution##
 
 ## Erreurs générales ##
+
+# Erreur : Mauvais type de variable
+
+# Erreur : Chemin non valide
+
+# Erreur : Aucun fichier a destination
+
+# Erreur : Extension non reconnu (pas prise en charge)
+
+# Erreur : Argument(s) manquant(s)
+
+## Erreurs maths 
+
+# Erreur_ma : Mauvais objets pour opération
+
+# Erreur_ma : Division par 0
+
+# Erreur_ma : Mauvaise dimensions
+
+# Erreur_ma : Matrice non carrée
+
+# Erreur_ma : Matrice non inversible
+
+# Erreur_ma : Matrice inversible
+
+## Erreurs meca
+
+## Erreurs phy
+
+## Erreurs elec
+
+
+
+
 
 # Erreur 1 : Mauvais type de variable 
 def Error_1(ty=None,te=None):

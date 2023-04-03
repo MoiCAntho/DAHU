@@ -49,11 +49,3 @@ def importdata(chemin):
             er.Error_2()
     else:
         er.Error_1(ty)
-
-## Nouvelles classes ##
-
-## A faire : 
-# -classe expression qui permetterai de faire des expressions quelconques, les dérivées, les additionner,...
-# (Calcul formel), faire les applications numériques ...
-# -classe vecteur ?
-# -classe graphe##

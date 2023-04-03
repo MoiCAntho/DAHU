@@ -2,7 +2,7 @@
 
 ## Faire les docstrings : """...""" ##
 
-## Import des modules essentiels ##
+## Import des modules & packages essentiels ##
 
 import giacpy
 import donnees
