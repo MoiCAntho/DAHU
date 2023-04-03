@@ -18,6 +18,9 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+     "giacpy==0.7.1"
+]
 
 [project.urls]
 "Homepage" = "https://github.com/MoiCAntho/DAHU"
