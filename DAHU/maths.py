@@ -416,9 +416,8 @@ class Complexe :
             self.th = 0
         elif self.a == 0 and self.b != 0 :
             self.r = self.b
-            self.th = donnees.pi/2
+            self.th = (donnees.pi)/2
         return (self.r, self.th)
-        pass
 
 class Fonction(Expression) :
     def __init__(self,nom,expr,var) :
