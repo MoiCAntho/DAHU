@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "DAHU12"
-version = "0.0.0.0.1"
+version = "0.0.0.0.2"
 description = "Package de calcul formel (pour l'instant ;=) )"
 authors = ["LOUVAT SEGURA Anthony","CHEMINOT Virgile"]
 license = "MIT"
