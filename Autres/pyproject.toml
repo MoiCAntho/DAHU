@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "DAHU12"
+version = "0.0.0.0.1"
+authors = [
+  { name="LOUVAT SEGURA Anthony"},
+  { name="CHEMINOT Virgile" },
+]
+
+description = "Package de calcul formel (pour l'instant ;=) )"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+     "giacpy==0.7.1"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/MoiCAntho/DAHU"
+"Bug Tracker" = "https://github.com/MoiCAntho/DAHU/issues"
