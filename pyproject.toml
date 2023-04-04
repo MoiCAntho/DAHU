@@ -2,7 +2,7 @@
 name = "dahu"
 version = "0.0.0.0.1"
 description = "Package de calcul formel (pour l'instant ;=) )"
-authors = ["Your Name <you@example.com>"]
+authors = ["LOUVAT SEGURA Anthony <>","CHEMINOT Virgile <>"]
 license = "MIT"
 readme = "README.md"
 
