@@ -1,11 +1,13 @@
 [tool.poetry]
-name = "DAHU"
+name = "DAHU12"
 version = "0.0.0.0.1"
 description = "Package de calcul formel (pour l'instant ;=) )"
 authors = ["LOUVAT SEGURA Anthony","CHEMINOT Virgile"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/MoiCAntho/DAHU"
+packages = [
+    {include = "DAHU"},]
 
 [tool.poetry.dependencies]
 python = "^3.7"
