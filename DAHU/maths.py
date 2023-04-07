@@ -7,7 +7,7 @@
 import giacpy
 import donnees
 import erreurs as er
-import random as r
+import random
 
 # Utilisation de Giac pour gestion des variables et des expressions et autres pitits trucs #
 
@@ -450,9 +450,22 @@ class Fonction(Expression) :
 
     ## Définition des différents types de fonctions
 
-class Polynôme :
-    def __init__(self):
-        pass
+class Polynôme() :
+    def __init__(self,coef,var):
+        self.coef = coef
+        p = ""
+        for i in range(len(self.coef)) :
+            a = float(self.coef[i])
+            p = p + "(" + str(a) + ")*" + var + "^(" + str(len(self.coef)-i)+ ")"
+            if i != len(self.coef) :
+                p += "+"
+        b = [var]
+        print(p)
+        self.expr = Expression(p,b)
+        self.expr = self.expr.simp()
+    
+    def __repr__(self):
+        return self.expr.sexpr
 
 class Ensemble :
 
@@ -484,7 +497,7 @@ def randomatrice(lignes,colonnes,xmin=-15,xmax=15) : #Generation d'une matrice a
     mat = Matrice(lignes,colonnes)
     for i in range(lignes) :
         for j in range(colonnes) :
-            mat[i][j] = r.randint(xmin,xmax)
+            mat[i][j] = random.randint(xmin,xmax)
     return mat
 
 def matrice123(lignes,colonnes) : #Generation d'une matrice suivant la suite des entiers naturels !
@@ -557,6 +570,9 @@ def mel_transvection(ligne_1,ligne_2,valeur,n) : #Matrice elementaire de transve
 
 def taylor(expr,var,pt,ordre) :
     expr.sucderiv(var,ordre)
+
+def approx_fourrier():
+    pass
 
 
 ## Fonctions Arithmétiques ##
