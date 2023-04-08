@@ -3,11 +3,12 @@
 ## Faire les docstrings : """...""" ##
 
 ## Import des modules & packages essentiels ##
-
+## Packages extérieurs
 import giacpy
-import donnees
-import erreurs as er
 import random
+
+## Modules internes
+from DAHU import donnees, erreurs
 
 # Utilisation de Giac pour gestion des variables et des expressions et autres pitits trucs #
 
@@ -116,7 +117,7 @@ class Matrice :
                 matrice.append(t)
             self.Matrice = matrice
         else :
-            er.Error_1()
+            pass
     
     def __repr__(self) : #Representation lors de l'utilisation de print()
         l = self.nbl
@@ -152,7 +153,7 @@ class Matrice :
                         mat[i][j] = self[i][j] + autre[i][j]
                 return mat
             else :
-                er.Error_ma_6()
+                pass
         else :
             pass
 
@@ -162,9 +163,9 @@ class Matrice :
                 matreturn = self + autre
                 return matreturn
             else :
-                er.Error_ma_6()
+                pass
         else :
-            er.Error_ma_2(ty="Matrice")
+            pass
     
     def __sub__(self,autre) : #Soustraction de deux matrices
         if isinstance(autre,Matrice) :
@@ -175,9 +176,9 @@ class Matrice :
                         mat[i][j] = self[i][j] - autre[i][j]
                 return mat
             else :
-                er.Error_ma_6()
+                pass
         else :
-            er.Error_ma_2(ty="Matrice")
+            pass
     
     def __isub__(self,autre) : #Utilisation de l'operateur -= !
         return self - autre
@@ -201,7 +202,7 @@ class Matrice :
                     mat[i][j] = self[i][j]*float(autre)
             return mat
         else :
-            er.Error_6()
+            pass
 
     def __rmul__(autre,self) : #Commutativite de la multiplication par un scalaire (faire les filtres)
         if isinstance(autre,int) :
@@ -481,7 +482,7 @@ class Intervalle(Ensemble) :
 ## Définitions de quelques opérations ##
 
 def prodvec(vec1,vec2) : #Produit vectoriel de deux vecteurs de R3 (faire les filtres) !
-    if er.Error_ma_1(Vecteur,vec1,vec2) :
+    if True :
         if len(vec1) == len(vec2) == 3 :
             vec = Vecteur(3)
             vec[0] = vec1[1]*vec2[2] - vec1[2]*vec2[1]
@@ -536,7 +537,7 @@ def matriceel(element) : #Generation d'une matrice à partir d'une liste de list
                 mat[i][j] = element[i][j]
         return mat
     else :
-        er.Error_ma_5()
+        pass
 
 def mat_creuse_1(ligne, colonne, valeur,n) : #Matrice creuse contenant 1 valeur à la position (ligne,colonne)
     mat = Matrice(n,n)

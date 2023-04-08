@@ -1,5 +1,7 @@
 ## Librairie : Partie Mecanique ##
 
+from DAHU import main, maths, erreurs
+
 import main
 import maths as ma
 import erreurs as er
