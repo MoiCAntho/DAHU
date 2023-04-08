@@ -8,7 +8,7 @@ import giacpy
 import random
 
 ## Modules internes
-from DAHU import donnees, erreurs
+from DAHU.donnees import pi
 
 # Utilisation de Giac pour gestion des variables et des expressions et autres pitits trucs #
 
@@ -417,7 +417,7 @@ class Complexe :
             self.th = 0
         elif self.a == 0 and self.b != 0 :
             self.r = self.b
-            self.th = (donnees.pi)/2
+            self.th = (pi)/2
         return (self.r, self.th)
 
 class Fonction(Expression) :
