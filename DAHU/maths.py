@@ -22,6 +22,10 @@ class Expression :
         self.sexpr = str(self.Expr)
         self.derivs = []
         self.ints = []
+        self.ty = ""
+        if "=" in self.sexpr :
+            self.ty = "equa"
+
 
     def __getitem__(self,index) :
         return self.Expr[index]
@@ -99,6 +103,12 @@ class Expression :
         lim = giacpy.limit(self.Expr,var,giacpy.giac(val))
         lim = str(lim)
         return lim
+    
+    def solve(self) :
+        if self.ty == "equa" :
+            print(giacpy.solve(self.Expr,self.c["var"]))
+        else :
+            return None
 
 class Matrice :
     """Classe permettant de creer et manipuler les matrices"""
@@ -614,5 +624,5 @@ def red_gauss(q) :
     return giacpy.gauss(q.Expr,q.c["var"])
 
 
-
-
+a = Expression("2*x+3","x")
+a.solve()

@@ -1,4 +1,5 @@
 import maths as ma
+from .cartes import Board as b
 
 # a = ma.Expression("2t+3",var="t")
 # b = ma.Expression("4t^3+6t", var="t")
