@@ -1,7 +1,17 @@
+from PyQt6.QtWidgets import QApplication, QMainWindow, QToolBar, QMenuBar, QStatusBar, QLabel, QWidget, QVBoxLayout
+from PyQt6.QtGui import QAction, QIcon, QGuiApplication
+
+
 import bokeh.plotting as bplt
 import matplotlib.pyplot as plt
 from numpy import linspace
 from maths import Expression, segme
+
+class GraphWindow(QMainWindow) :
+    def __init__(self):
+        pass
+
+
 
 class Graph :
     def __init__(self) :
