@@ -40,8 +40,7 @@ class Expression :
         return len(self.sexpr)
     
     def __repr__(self) :
-        a = str(self)
-        return self
+        return self.sexpr
 
     def __add__(self,autre) :
         if isinstance(autre,Expression) :
