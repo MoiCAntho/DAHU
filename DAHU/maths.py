@@ -15,6 +15,7 @@ from DAHU.donnees import pi
 ## Definitions d'objets mathématiques généraux ##
 
 class Expression :
+    """Classe permettant de créer et manipuler les expressions"""
 
     def __init__(self,expr,var,cte = None) : #Création d'une expression à l'aide d'un str (Faire les filtres) !
         self.c = {"var" : var ,"cte" : cte}
@@ -25,7 +26,6 @@ class Expression :
         self.ty = ""
         if "=" in self.sexpr :
             self.ty = "equa"
-
 
     def __getitem__(self,index) :
         return self.Expr[index]
@@ -44,21 +44,105 @@ class Expression :
         return self
 
     def __add__(self,autre) :
-        a = self.sexpr
-        b = autre.sexpr
-        a = giacpy.giac(a)
-        b = giacpy.giac(b)
-        c = a + b
-        self.Expr = c
-        self.sexpr = str(c)
-        return self
+        if isinstance(autre,Expression) :
+            a = self.sexpr
+            b = autre.sexpr
+            a = giacpy.giac(a)
+            b = giacpy.giac(b)
+            c = a + b
+            self.Expr = c
+            self.sexpr = str(c)
+            return self
+        if isinstance(autre,int) :
+            a = "("+self.sexpr+")+"+str(autre)
+            self.sexpr = a
+            self.Expr = giacpy.giac(a)
+            return self
+        if isinstance(autre,float) :
+            a = "("+self.sexpr+")+"+str(autre)
+            self.sexpr = a
+            self.Expr = giacpy.giac(a)
+            return self
+    
+    def __radd__(autre,self) :
+        if isinstance(autre,Expression) :
+            return autre + self
+        if isinstance(autre,int) :
+            a = str(autre)+"+("+self.sexpr+")"
+            self.sexpr = a
+            self.Expr = giacpy.giac(a)
+            return self
+        if isinstance(autre,float) :
+            a = str(autre)+"+("+self.sexpr+")"
+            self.sexpr = a
+            self.Expr = giacpy.giac(a)
+            return self
 
-    def subs(self,var_1,var_2) :
+    def __iadd__(self,autre) : #A faire
+        pass
+
+    def __sub__(self,autre) : #A faire
+        pass
+
+    def __rsub__(self,autre) : #A faire
+        pass
+
+    def __isub__(self,autre) : #A faire
+        pass
+
+    def __mul__(self,autre) : #!!
+        if isinstance(autre,Expression) :
+            a = self.sexpr
+            b = autre.sexpr
+            self.sexpr = a+"*"+b
+            self.Expr = giacpy.giac(self.sexpr)
+            return self
+        if isinstance(autre,int) :
+            a = "("+self.sexpr+")*"+str(autre)
+            self.sexpr = a
+            self.Expr = giacpy.giac(a)
+            return self
+        if isinstance(autre,float) :
+            a = "("+self.sexpr+")*"+str(autre)
+            self.sexpr = a
+            self.Expr = giacpy.giac(a)
+            return self
+
+    def __rmul__(autre,self) : #!!
+        if isinstance(autre,Expression) :
+            return autre * self
+        if isinstance(autre,int) :
+            a = str(autre)+"*("+self.sexpr+")"
+            self.sexpr = a
+            self.Expr = giacpy.giac(a)
+            return self
+        if isinstance(autre,float) :
+            a = str(autre)+"*("+self.sexpr+")"
+            self.sexpr = a
+            self.Expr = giacpy.giac(a)
+            return self
+
+    def __imul__(self,autre) : #A faire
+        pass
+
+    def __div__(self,autre) : #A faire
+        pass
+
+    def __rdiv__(self,autre) : #A faire
+        pass
+
+    def __idiv__(self,autre) : #A faire
+        pass
+
+    def __pow__(self,autre) : #A faire
+        pass
+
+    def subs(self,var_1,var_2) : #Substitue une variable en une autre
         a = self.sexpr
         b = a.replace(str(var_1),str(var_2))
         return b
     
-    def eval(self,var,val) :
+    def eval(self,var,val) : #Evalue l'expression pour une valeur
         a = self.subs(var,val)
         b = giacpy.giac(a)
         return float(b)
@@ -78,7 +162,7 @@ class Expression :
             intexpr = Expression(str(self.Expr),var=self.c)
             return intexpr
         else :
-            pass
+            return giacpy.int(self.Expr,var,a,b)
 
     def simp(self) :
         self.Expr = giacpy.simplify(self.Expr)
@@ -598,15 +682,10 @@ def PPCM(nb_1,nb_2) : #Renvoie le plus petit commun multiple de deux nombres
 def eratostene(n) : #Renvoie une liste contenant tous les nombres premier de 1 jusqu'a n par le crible d'eratostene
     pass
 
-def segme(start,stop,step): #Faire les filtres
-    f = []
-    f.append(start)
-    while start != stop or start < stop :
-        start += step
-        if start > stop :
-            break
-        f.append(start)
-    return f
+def segme(start,stop,nbpts): #Definit un découpage sur un segment entre deux valeurs Faire les filtres
+    delta_x = (stop - start)/(nbpts-1)
+    segme = [start+i*delta_x for i in range(0,nbpts)]
+    return segme
 
 
 ## Analyse numérique
@@ -623,6 +702,32 @@ def MCNL () : #Curvefit avec la méthode des moindres carrées non linéaire
 def red_gauss(q) :
     return giacpy.gauss(q.Expr,q.c["var"])
 
+def trigo_fourier(f) : #Donne les coefficients trigonométriques de Fourier généraux sous la forme d'une liste (dans l'intervale -pi pi, donc série est 2pi périodique) Faire les filtres
+    coef = []
+    a0 = str(giacpy.fourier_an)
+    return coef
 
-a = Expression("2*x+3","x")
-a.solve()
+def somme(expr,indic,max) : #Utilisation de la somme sigma
+    if indic in expr.c["var"] :
+        modifex = Expression(expr.sexpr,var=expr.c["var"].remove(indic))
+    ssomme = ""
+    for i in range(max) :
+        a = expr.subs(indic,i+1)
+        if i == max-1 :
+            ssomme += str(a)
+        else :
+            ssomme += str(a) + "+"
+    somme = Expression(ssomme,var=modifex.c["var"])
+    return somme
+
+def serie_fourier(coefs,max) :
+    a = Expression(str(coefs[1])+"*cos(nx)"+"+"+str(coefs[2])+"*sin(nx)",var=["n","x"])
+    serie = coefs[0]+somme(a,"n",max)
+    return serie
+
+#print(Expression("x**2*sin(nx)",["x"]).int("x",a=0,b=pi))
+#print(trigo_fourier(Expression("x^2",var=["x"])))
+a = Expression("(x+2)/n",var=["x","n"])
+print(somme(a,"n",10))
+a = trigo_fourier(Expression("x^3",var=["x"]))
+print(serie_fourier(a,10))
