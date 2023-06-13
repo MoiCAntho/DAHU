@@ -687,7 +687,22 @@ def segme(start,stop,nbpts): #Definit un découpage sur un segment entre deux va
     return segme
 
 
-## Analyse numérique
+## Analyse numérique et de donnees
+
+def num_deriv(x,y=None,pas=None) : #Prend une liste donnees
+    deriv = []
+    if y != None and pas == None :
+        if len(x) == len(y) :
+            for i in range(1,len(x)-1) :
+                deriv.append((x[i]-x[i-1])/(y[i]-y[i-1]))
+            return deriv
+        else :
+            print("Erreur")
+    elif y == None and pas != None :
+        for i in range(1,len(x)-1) :
+            deriv.append((x[i]-x[i-1])/pas)
+    else :
+        print("Erreur")
 
 def regr() : #Regression linéaire, logarithmique, exponentielle ou puissance à partir de données
     pass

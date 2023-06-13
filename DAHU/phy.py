@@ -13,3 +13,10 @@ def extractp(chemin):
 
 def diagenthal() :
     pass
+
+## Astronomie
+class OCel : #Définition d'un objet céleste
+    def __init__(self) -> None:
+        pass
+
+
