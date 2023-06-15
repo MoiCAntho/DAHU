@@ -330,6 +330,11 @@ class Matrice :
                 else :
                     return True
     
+    def clear(self) :
+        for i in range(self.nbl) :
+            for j in range(self.nbc) :
+                self[i][j] = 0
+
     def giac_convert(self) :
         return giacpy.giac(self.Matrice)
 
@@ -394,13 +399,29 @@ class Matrice :
         return self*a
 
     def comatrice(self) : #Retourne la matrice de cofacteur d'une matrice (A faire) !
-        pass
+        mat = Matrice(self.nbl,self.nbc)
+        for i in range(self.nbl) :
+            for j in range(self.nbc) :
+                cof = Matrice(self.nbl-1,self.nbc-1)
+                for a in range(self.nbl-1) :
+                    for b in range(self.nbc-1) :
+                        for k in range(self.nbl) :
+                            for l in range(self.nbc) :
+                                if k != i :
+                                    if l != j :
+                                        cof[a][b] = self[k][l]
+                print(cof)
+                mat[i][j] = cof.det()
+                cof.clear()
+                print("salut"+str(cof))
+        return mat
 
     def inverse(self) : #Nous retourne la matrice inverse (Definir comatrice()) (Faire les filtres) !
         if self.isinversible() == True :
-            a = self.comatrice()
-            b = 1/(self.det())*(a.transposee())
-            self.Matrice = b
+            return 
+            # a = self.comatrice()
+            # b = 1/(self.det())*(a.transposee())
+            # self.Matrice = b
 
     def gauss_jordan(self) : #Met la matrice sous forme echelon reduite (A faire) !
         n = self.dim()
@@ -411,6 +432,7 @@ class Matrice :
         for i in range(self.dim()[0]) :
             self[i][i] = Expression(str(self[i][i])+"-t",var=["t"])
         det = self.det()
+        print(det)
         # Définir résolution polynomiale pour résolution det(A)=0
 
     def eigenvec(self) :
@@ -432,6 +454,9 @@ class Matrice :
                 if col == lig :
                     a += self[lig][col]
         return a
+    
+    def pseudo_inverse(self):
+        pass
 
 class Vecteur(Matrice) :
 
@@ -658,6 +683,11 @@ def mel_transvection(ligne_1,ligne_2,valeur,n) : #Matrice elementaire de transve
     mat = matriceid(n) +  a
     return mat
 
+def matrice_augmentee(mat_1,mat_2) :
+    m_a = []
+    m_a.append(mat_1)
+    m_a.append(mat_2)
+    return m_a
 
 ## Fonctions de Calcul algebrique ##
 
@@ -686,6 +716,39 @@ def segme(start,stop,nbpts): #Definit un découpage sur un segment entre deux va
     segme = [start+i*delta_x for i in range(0,nbpts)]
     return segme
 
+
+## Statistiques
+
+def moyenne(x,n=None):
+    if n == None :
+        j = 0
+        for i in len(x):
+            j += x[i]
+        moy = j/len(x)
+        return moy
+    else :
+        if len(x) == len(n) :
+            j = 0
+            for i in len(n) :
+                j+=x[i]*n[i]
+            moy = j/len(n)
+        
+        return moy
+
+def variance():
+    pass
+
+def ecart_type():
+    pass
+
+def covariance():
+    pass
+
+def coef_correlation() :
+    pass
+
+def choix_reg():
+    pass
 
 ## Analyse numérique et de donnees
 
@@ -739,9 +802,5 @@ def serie_fourier(coefs,max) :
     serie = coefs[0]+somme(a,"n",max)
     return serie
 
-#print(Expression("x**2*sin(nx)",["x"]).int("x",a=0,b=pi))
-#print(trigo_fourier(Expression("x^2",var=["x"])))
-a = Expression("(x+2)/n",var=["x","n"])
-print(somme(a,"n",10))
-a = trigo_fourier(Expression("x^3",var=["x"]))
-print(serie_fourier(a,10))
+a = matriceel([[5,9,3],[1,7,4],[9,2,3]])
+print(a.comatrice())

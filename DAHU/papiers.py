@@ -2,6 +2,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import landscape
 from reportlab.lib.units import mm
 from math import tan
+
 ## Formats et themes predefinis ## 
 
 A4 = (297*mm,210*mm)
@@ -32,14 +33,14 @@ def milli(format=A4,nom="milli.pdf",mar=[6*mm,6*mm,6*mm,10*mm]) :
     c = 0
     marges = [0+mar[0],0+mar[1],format[0]-mar[2],format[1]-mar[3]]
     print(marges)
-    for i in range(format[0],294) :
+    for i in range(int(format[0]),294) :
         if c%5 == 0 or c == 0 :
             pdf.setLineWidth(0.3*mm)
-            pdf.line(a*mm,5*mm,a*mm,190*mm)
+            pdf.line(i*mm,5*mm,i*mm,190*mm)
             c += 1
         else :
             pdf.setLineWidth(0.1*mm)
-            pdf.line(a*mm,5*mm,a*mm,190*mm)
+            pdf.line(i*mm,5*mm,i*mm,190*mm)
             c+= 1
     c = 0
     for i in range(5,191) :
@@ -76,4 +77,4 @@ def polaire(format=A4,nom="polaire.pdf",mar=[20,6,6,6],theme=defaut) :
         a.line(xc,yc,b[2],(xc*tan(i))+yc)
     a.save()
 
-milli()
+milli().save()
