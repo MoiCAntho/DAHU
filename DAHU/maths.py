@@ -6,9 +6,10 @@
 ## Packages extérieurs
 import giacpy
 import random
+import copy
 
 ## Modules internes
-from DAHU.donnees import pi
+from donnees import pi
 
 # Utilisation de Giac pour gestion des variables et des expressions et autres pitits trucs #
 
@@ -148,13 +149,13 @@ class Expression :
     
     ## Calcul infinitesimal : derivees, integrales, limites ...##
 
-    def deriv(self,var) : 
-        expr1 = giacpy.diff(self.Expr,var)
+    def deriv(self, var) :
+        expr1 = giacpy.diff(self.Expr, var)
         self.derivs.append(str(expr1))
-        derivexpr = Expression(str(expr1),var=self.c)
+        derivexpr = Expression(str(expr1), var=self.c)
         return derivexpr
     
-    def int(self,var,a=None,b=None):
+    def int(self, var, a=None, b=None):
         if a == None and b == None :
             self.Expr = giacpy.int(self.Expr,var)
             self.ints.append(str(self.Expr))
@@ -335,10 +336,62 @@ class Matrice :
             for j in range(self.nbc) :
                 self[i][j] = 0
 
+    def copy(self):
+        mat = Matrice(self.nbl,self.nbc)
+        mat.Matrice = copy.deepcopy(self.Matrice)
+        return mat
+
     def giac_convert(self) :
         return giacpy.giac(self.Matrice)
 
     ## Methodes ##
+
+    def mat_augm_lig(self, pos = None):  # Insère une ligne vide à la position mise en agrument
+        lig = []
+        for i in range(self.nbc):
+            lig.append(0)
+        if pos != None:
+            sto_lig = {}
+            for i in range(pos - 1, self.nbl):
+                sto_lig[str(i)] = self[i]
+            self[pos - 1] = lig
+            for k in sto_lig.keys():
+                if int(k) + 1 <= self.nbl:
+                    self.Matrice.append(sto_lig[k])
+                for j in range(self.nbc):
+                    self[int(k) + 1] = sto_lig[k]
+            self.nbl += 1
+        else:
+            self.Matrice.append(lig)
+            self.nbl += 1
+
+    def mat_augm_col(self, pos = None):
+        if pos != None:
+            for i in range(self.nbl):
+                self.Matrice[i].insert(pos - 1, 0)
+            self.nbc += 1
+        else:
+            for i in range(self.nbl):
+                self.Matrice[i].insert(self.nbc, 0)
+            self.nbc += 1
+
+    def mat_sup_lig(self, pos = None):
+        if pos != None :
+            del self.Matrice[pos-1]
+            self.nbl -= 1
+        else :
+            del self.Matrice[self.nbl-1]
+            self.nbl -= 1
+
+    def mat_sup_col(self, pos = None):
+        if pos != None :
+            for i in range(self.nbl) :
+                del self.Matrice[i][pos-1]
+            self.nbc -= 1
+        else :
+            for i in range(self.nbl) :
+                del self.Matrice[i][self.nbc-1]
+            self.nbc -= 1
 
     def dim(self): #Renvoie la dimension de la matrice !
         return (self.nbl,self.nbc)
@@ -398,30 +451,23 @@ class Matrice :
         a = mel_transvection(ligne_1,ligne_2,valeur,n[1])
         return self*a
 
-    def comatrice(self) : #Retourne la matrice de cofacteur d'une matrice (A faire) !
+    def comatrice(self) : #Retourne la matrice de cofacteur d'une matrice !
         mat = Matrice(self.nbl,self.nbc)
         for i in range(self.nbl) :
             for j in range(self.nbc) :
-                cof = Matrice(self.nbl-1,self.nbc-1)
-                for a in range(self.nbl-1) :
-                    for b in range(self.nbc-1) :
-                        for k in range(self.nbl) :
-                            for l in range(self.nbc) :
-                                if k != i :
-                                    if l != j :
-                                        cof[a][b] = self[k][l]
-                print(cof)
-                mat[i][j] = cof.det()
-                cof.clear()
-                print("salut"+str(cof))
+                a = self.copy()
+                a.mat_sup_lig(pos = i+1)
+                a.mat_sup_col(pos = j+1)
+                print(a)
+                mat[i][j] = a.det()*(-1)**(i+j)
         return mat
 
     def inverse(self) : #Nous retourne la matrice inverse (Definir comatrice()) (Faire les filtres) !
         if self.isinversible() == True :
-            return 
             # a = self.comatrice()
             # b = 1/(self.det())*(a.transposee())
             # self.Matrice = b
+            pass
 
     def gauss_jordan(self) : #Met la matrice sous forme echelon reduite (A faire) !
         n = self.dim()
@@ -457,6 +503,10 @@ class Matrice :
     
     def pseudo_inverse(self):
         pass
+
+
+
+
 
 class Vecteur(Matrice) :
 
@@ -537,6 +587,10 @@ class Complexe :
             self.r = self.b
             self.th = (pi)/2
         return (self.r, self.th)
+
+class Graphe :
+    def __init__(self):
+        pass
 
 class Fonction(Expression) :
     def __init__(self,nom,expr,var) :
@@ -803,4 +857,5 @@ def serie_fourier(coefs,max) :
     return serie
 
 a = matriceel([[5,9,3],[1,7,4],[9,2,3]])
-print(a.comatrice())
+b = a.comatrice()
+print(b)
