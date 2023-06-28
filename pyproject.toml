@@ -11,8 +11,10 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-giacpy = "0.7.1"
-wheel = "0.38.4"
+giacpy = "^0.7.1"
+wheel = "^0.40.0"
+cython = "^0.29.35"
+
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/MoiCAntho/DAHU/issues"
