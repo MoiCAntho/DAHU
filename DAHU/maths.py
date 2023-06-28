@@ -330,7 +330,13 @@ class Matrice :
                     return False
                 else :
                     return True
-    
+
+    def round(self, n=None):
+        for i in range(self.nbl):
+            for j in range(self.nbc):
+                self[i][j] = round(self[i][j],n)
+        return self
+
     def clear(self) :
         for i in range(self.nbl) :
             for j in range(self.nbc) :
@@ -439,7 +445,7 @@ class Matrice :
             else :
                 a = self.giac_convert()
                 det = giacpy.det(a)
-                return det
+                return int(det)
 
     def tranvesction_lig(self,ligne_1,ligne_2,valeur) : #Transvecte une ligne avec une autre d'une certaine valeur (faire les filtres) !
         n = self.dim()
@@ -462,12 +468,13 @@ class Matrice :
                 mat[i][j] = a.det()*(-1)**(i+j)
         return mat
 
-    def inverse(self) : #Nous retourne la matrice inverse (Definir comatrice()) (Faire les filtres) !
-        if self.isinversible() == True :
-            # a = self.comatrice()
-            # b = 1/(self.det())*(a.transposee())
-            # self.Matrice = b
-            pass
+    def inverse(self, arr=True, dig=3): #Nous retourne la matrice inverse (Definir comatrice()) (Faire les filtres) !
+        if self.isinversible()==True:
+            a = self.comatrice()
+            b = 1/(self.det())*(a.transposee())
+            if arr == True:
+                b.round(dig)
+            return b
 
     def gauss_jordan(self) : #Met la matrice sous forme echelon reduite (A faire) !
         n = self.dim()
@@ -503,9 +510,6 @@ class Matrice :
     
     def pseudo_inverse(self):
         pass
-
-
-
 
 
 class Vecteur(Matrice) :
@@ -856,6 +860,3 @@ def serie_fourier(coefs,max) :
     serie = coefs[0]+somme(a,"n",max)
     return serie
 
-a = matriceel([[5,9,3],[1,7,4],[9,2,3]])
-b = a.comatrice()
-print(b)
