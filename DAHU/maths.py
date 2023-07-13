@@ -7,16 +7,17 @@
 import giacpy
 import random
 import copy
+import math
 
 ## Modules internes
-from donnees import pi
+from DAHU.donnees import pi
 
 # Utilisation de Giac pour gestion des variables et des expressions et autres pitits trucs #
 
 ## Definitions d'objets mathématiques généraux ##
 
 class Expression :
-    """Classe permettant de créer et manipuler les expressions"""
+    """Classe permettant de creer et manipuler les expressions"""
 
     def __init__(self,expr,var,cte = None) : #Création d'une expression à l'aide d'un str (Faire les filtres) !
         self.c = {"var" : var ,"cte" : cte}
@@ -145,7 +146,10 @@ class Expression :
     def eval(self,var,val) : #Evalue l'expression pour une valeur
         a = self.subs(var,val)
         b = giacpy.giac(a)
-        return float(b)
+        if str(b) == "undef":
+            return None
+        else :
+            return float(b)
     
     ## Calcul infinitesimal : derivees, integrales, limites ...##
 
@@ -837,10 +841,23 @@ def MCNL () : #Curvefit avec la méthode des moindres carrées non linéaire
 def red_gauss(q) :
     return giacpy.gauss(q.Expr,q.c["var"])
 
-def trigo_fourier(f) : #Donne les coefficients trigonométriques de Fourier généraux sous la forme d'une liste (dans l'intervale -pi pi, donc série est 2pi périodique) Faire les filtres
+def trigo_fourier(f, var, per = 2*pi, dep = 0) : #Donne les coefficients trigonométriques de Fourier généraux sous la forme d'une liste (dans l'intervale -pi pi, donc série est 2pi périodique) Faire les filtres
     coef = []
-    a0 = str(giacpy.fourier_an)
+    an = Expression(str(giacpy.fourier_an(f.Expr, var, per, "n", dep)),["n"])
+    a0 = an.eval("n",0)
+    bn = Expression(str(giacpy.fourier_bn(f.Expr, var, per, "n", dep)),["n"])
+    coef.append(a0)
+    coef.append(an)
+    coef.append(bn)
     return coef
+
+def fourier_an(f, varex, var="n", int=[-pi,pi],):
+    a = Expression("cos(nx)",["x"])
+    a = f*a
+    print(a)
+    an = a.int(varex,int[0],int[1])
+    return an
+
 
 def somme(expr,indic,max) : #Utilisation de la somme sigma
     if indic in expr.c["var"] :
@@ -859,4 +876,12 @@ def serie_fourier(coefs,max) :
     a = Expression(str(coefs[1])+"*cos(nx)"+"+"+str(coefs[2])+"*sin(nx)",var=["n","x"])
     serie = coefs[0]+somme(a,"n",max)
     return serie
+
+def briggs(nb, it=25) : #Approxime le logarithme neperien d'un nombre, precision a 8 decimales
+    a = 1/nb
+    n=0
+    while n < it :
+        a = math.sqrt(a)
+        n += 1
+    return (1-a)*2**it
 

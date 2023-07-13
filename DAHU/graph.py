@@ -1,14 +1,7 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QToolBar, QMenuBar, QStatusBar, QLabel, QWidget, QVBoxLayout
-from PyQt6.QtGui import QAction, QIcon, QGuiApplication
-
-
-import bokeh.plotting as bplt
+# import bokeh.plotting as bplt
 import matplotlib.pyplot
-from maths import Expression, segme, abs
+from maths import Expression, segme
 
-class GraphWindow(QMainWindow) :
-    def __init__(self):
-        pass
 
 
 
@@ -30,13 +23,11 @@ class Graph :
 
 
 
+f = Expression("(8.314*T)/(1.400*10^5)", ["T"])
 
-
-def f(x):
-    return x**2
 
 x = [i for i in range(-10,10)]
-y = [f(i) for i in range(-10,10)]
+y = [f.eval("T",i) for i in range(-10,10)]
 
 
 matplotlib.pyplot.figure()

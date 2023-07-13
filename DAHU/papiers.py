@@ -11,50 +11,63 @@ defaut = {} #Noir
 
 class Papier :
 
-    def __init__(self,format=A4,nom="000.pdf",mar=[20,6,6,6]) : # Template papier graphes
-        marge = [format[1]-mar[0]*mm,0*mm+mar[1]*mm,0*mm+mar[2]*mm,format[0]-mar[3]*mm] # [haut,bas,gauche,droite]
+    def __init__(self, format=A4, nom="000.pdf", mar=[10*mm,6*mm,6*mm,6*mm]): # Template papier graphes
+        marge = [format[1]-mar[0],0+mar[1],0+mar[2],format[0]-mar[3]] # marge [haut,bas,gauche,droite]
         pdf = canvas.Canvas(nom,pagesize=landscape(format))
-        rect = [marge[2],marge[1],format[0]-(mar[2]+mar[2])*mm,format[1]-(mar[0]+mar[1])*mm]
+        rect = [mar[2],mar[1],format[0]-(mar[2]+mar[3]),format[1]-(mar[0]+mar[1])]
         pdf.rect(rect[0],rect[1],rect[2],rect[3])
         pdf.setFont("Helvetica",6)
-        pdf.drawString(format[0]-30*mm,marge[1]-(marge[1]*(mm/5)),"DAHU.py")
+        pdf.drawString(format[0]-30*mm,marge[1]-(marge[1]/5),"DAHU.py")
         self.pdf = pdf
         self.marge = marge
         self.format = format
         self.cadre = rect
         pdf.translate(0,0)
-        return None
 
     def save(self) :
         self.pdf.save()
 
-def milli(format=A4,nom="milli.pdf",mar=[6*mm,6*mm,6*mm,10*mm]) :
-    pdf = canvas.Canvas(nom,pagesize=landscape(format))
+def milli(format=A4, nom="milli.pdf", mar=[10*mm,6*mm,6*mm,6*mm]):
+    pap = Papier(format,nom,mar)
+    ## Trace des lignes horizontales
+    print(pap.marge)
     c = 0
-    marges = [0+mar[0],0+mar[1],format[0]-mar[2],format[1]-mar[3]]
-    print(marges)
-    for i in range(int(format[0]),294) :
+    for i in range(int(pap.cadre[1]),int(pap.cadre[3])):
         if c%5 == 0 or c == 0 :
-            pdf.setLineWidth(0.3*mm)
-            pdf.line(i*mm,5*mm,i*mm,190*mm)
-            c += 1
+            pap.pdf.setLineWidth(0.3*mm)
+            c+=1
         else :
-            pdf.setLineWidth(0.1*mm)
-            pdf.line(i*mm,5*mm,i*mm,190*mm)
-            c+= 1
+            pap.pdf.setLineWidth(0.1 * mm)
+            c+=1
+        pap.pdf.line(pap.cadre[0], i * mm, pap.cadre[2], i * mm)
+
+
+
+
+
+
+
+
+    # for i in range(int(pap.marge[2]),int(pap.marge[3])) :
+    #     if c%5 == 0 or c == 0 :
+    #         pap.pdf.setLineWidth(0.3*mm)
+    #         pap.pdf.line(i*mm,pap.marge[0],i*mm,pap.marge[1])
+    #         c += 1
+    #     else :
+    #         pap.pdf.setLineWidth(0.1*mm)
+    #         pap.pdf.line(i*mm,5*mm,i*mm,190*mm)
+    #         c+= 1
     c = 0
-    for i in range(5,191) :
-        if i%5 == 0 or c == 0 :
-            pdf.setLineWidth(0.3*mm)
-            pdf.line(3.5*mm,i*mm,293.5*mm,i*mm)
-            c += 1
-        else :
-            pdf.setLineWidth(0.1*mm)
-            pdf.line(3.5*mm,i*mm,293.5*mm,i*mm)
-            c += 1
-    pdf.setFont("Helvetica",8)
-    pdf.drawString(260*mm,1.5*mm,"DAHU.py")
-    return pdf
+    # for i in range(int(marges[2]),int(marges[3])) :
+    #     if i%5 == 0 or c == 0 :
+    #         pap.pdf.setLineWidth(0.3*mm)
+    #         pap.pdf.line(3.5*mm,i*mm,293.5*mm,i*mm)
+    #         c += 1
+    #     else :
+    #         pap.pdf.setLineWidth(0.1*mm)
+    #         pap.pdf.line(3.5*mm,i*mm,293.5*mm,i*mm)
+    #         c += 1
+    return pap
 
 def semilog(format,nom,theme) :
     pass
@@ -76,5 +89,10 @@ def polaire(format=A4,nom="polaire.pdf",mar=[20,6,6,6],theme=defaut) :
     for i in [30,40,60,120,130,150] :
         a.line(xc,yc,b[2],(xc*tan(i))+yc)
     a.save()
+
+
+#pdf.setFont("Helvetica",8)
+#pdf.drawString(260*mm,1.5*mm,"DAHU.py")
+#canvas.Canvas(nom,pagesize=landscape(format))
 
 milli().save()
