@@ -10,7 +10,7 @@ import copy
 import math
 
 ## Modules internes
-from DAHU.donnees import pi
+#from DAHU.donnees import pi
 
 # Utilisation de Giac pour gestion des variables et des expressions et autres pitits trucs #
 
