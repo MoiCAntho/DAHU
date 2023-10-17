@@ -10,7 +10,7 @@ import copy
 import math
 
 ## Modules internes
-from DAHU.donnees import pi
+from maths import pi
 
 # Utilisation de Giac pour gestion des variables et des expressions et autres pitits trucs #
 
@@ -843,9 +843,9 @@ def red_gauss(q) :
 
 def trigo_fourier(f, var, per = 2*pi, dep = 0) : #Donne les coefficients trigonométriques de Fourier généraux sous la forme d'une liste (dans l'intervale -pi pi, donc série est 2pi périodique) Faire les filtres
     coef = []
-    an = Expression(str(giacpy.fourier_an(f.Expr, var, per, "n", dep)),["n"])
-    a0 = an.eval("n",0)
-    bn = Expression(str(giacpy.fourier_bn(f.Expr, var, per, "n", dep)),["n"])
+    a0 = (1 / per) * f.int(var, dep, dep + per)
+    an = Expression(str(giacpy.fourier_an(f.Expr, var, per, "p", dep)),["p"])
+    bn = Expression(str(giacpy.fourier_bn(f.Expr, var, per, "p", dep)),["p"])
     coef.append(a0)
     coef.append(an)
     coef.append(bn)
@@ -859,11 +859,11 @@ def fourier_an(f, varex, var="n", int=[-pi,pi],):
     return an
 
 
-def somme(expr,indic,max) : #Utilisation de la somme sigma
+def somme(expr,indic,dep,max) : #Utilisation de la somme sigma
     if indic in expr.c["var"] :
         modifex = Expression(expr.sexpr,var=expr.c["var"].remove(indic))
     ssomme = ""
-    for i in range(max) :
+    for i in range(dep,max) :
         a = expr.subs(indic,i+1)
         if i == max-1 :
             ssomme += str(a)
@@ -873,8 +873,8 @@ def somme(expr,indic,max) : #Utilisation de la somme sigma
     return somme
 
 def serie_fourier(coefs,max) :
-    a = Expression(str(coefs[1])+"*cos(nx)"+"+"+str(coefs[2])+"*sin(nx)",var=["n","x"])
-    serie = coefs[0]+somme(a,"n",max)
+    a = Expression(str(coefs[1])+"*cos(px)"+"+"+str(coefs[2])+"*sin(px)",var=["p","x"])
+    serie = coefs[0]+somme(a,"p",0,max)
     return serie
 
 def briggs(nb, it=25) : #Approxime le logarithme neperien d'un nombre, precision a 8 decimales
@@ -885,3 +885,17 @@ def briggs(nb, it=25) : #Approxime le logarithme neperien d'un nombre, precision
         n += 1
     return (1-a)*2**it
 
+
+a = Expression("x",["x"])
+b = trigo_fourier(a,"x")
+c = serie_fourier(b,3)
+print(c)
+
+import matplotlib.pyplot
+x = [i for i in range(-10,10)]
+y = [c.eval("x",i) for i in range(-10,10)]
+
+
+matplotlib.pyplot.figure()
+matplotlib.pyplot.plot(x,y)
+matplotlib.pyplot.show()
