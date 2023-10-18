@@ -3,14 +3,22 @@
 ## Faire les docstrings : """...""" ##
 
 ## Import des modules & packages essentiels ##
-## Packages extérieurs
+## Packages exterieurs
+
+## Traitement necessaire pour l'inclusion de giacpy en tant que fichier
+import sys
+import os
+# Obtenez le chemin absolu du répertoire racine du projet
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+# Ajoutez le chemin du répertoire racine à sys.path
+sys.path.insert(0, project_root)
 import giacpy
+
+## Import des autres packages
+
 import random
 import copy
 import math
-
-## Modules internes
-from maths import pi
 
 # Utilisation de Giac pour gestion des variables et des expressions et autres pitits trucs #
 
@@ -593,7 +601,7 @@ class Complexe :
             self.th = 0
         elif self.a == 0 and self.b != 0 :
             self.r = self.b
-            self.th = (pi)/2
+            self.th = (math.pi)/2
         return (self.r, self.th)
 
 class Graphe :
@@ -841,7 +849,7 @@ def MCNL () : #Curvefit avec la méthode des moindres carrées non linéaire
 def red_gauss(q) :
     return giacpy.gauss(q.Expr,q.c["var"])
 
-def trigo_fourier(f, var, per = 2*pi, dep = 0) : #Donne les coefficients trigonométriques de Fourier généraux sous la forme d'une liste (dans l'intervale -pi pi, donc série est 2pi périodique) Faire les filtres
+def trigo_fourier(f, var, per = 2*math.pi, dep = 0) : #Donne les coefficients trigonométriques de Fourier généraux sous la forme d'une liste (dans l'intervale -pi pi, donc série est 2pi périodique) Faire les filtres
     coef = []
     a0 = (1 / per) * f.int(var, dep, dep + per)
     an = Expression(str(giacpy.fourier_an(f.Expr, var, per, "p", dep)),["p"])
@@ -851,7 +859,7 @@ def trigo_fourier(f, var, per = 2*pi, dep = 0) : #Donne les coefficients trigono
     coef.append(bn)
     return coef
 
-def fourier_an(f, varex, var="n", int=[-pi,pi],):
+def fourier_an(f, varex, var="n", int=[-math.pi,math.pi],):
     a = Expression("cos(nx)",["x"])
     a = f*a
     print(a)

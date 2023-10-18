@@ -1,0 +1,7 @@
+VERSION=0.7.0
+mkdir giacpy-$VERSION
+git  clone -l ./ giacpy-$VERSION
+rm -rf giacpy-$VERSION/.git
+rm -rf giacpy-$VERSION/win32
+rm -rf giacpy-$VERSION/win64
+tar -cz giacpy-$VERSION -fgiacpy-$VERSION.tar.gz

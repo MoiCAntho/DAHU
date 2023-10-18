@@ -1,0 +1,8 @@
+global-include giacpy/*.pyx
+global-include giacpy/*.pxd
+global-include giacpy/*.pxi
+global-include giacpy/giacpymisc.h
+global-include giacpy/giacpymisc.h
+global-include giacpy/giacpy.cpp
+global-include giacpy/giacpy2qcas.cpp
+global-include giacpy/GPL-2

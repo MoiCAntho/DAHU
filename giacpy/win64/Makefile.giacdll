@@ -1,0 +1,73 @@
+###################################
+# to be executed in giac-x.y.Z/src
+###################################
+GIACVERSION=1.9.0
+GIACSUBVERSION=27
+GIACBASEDIR=/home/fred/dev/win64/
+#
+DESTDIR=/home/fred/dev/win64/
+CXX=x86_64-w64-mingw32-g++
+# re enabling NTL built with NATIVE off and TUNE generic
+#LIBS=-lntl -lpari -lgsl -lgslcblas -lintl -ldl -lpng -lmpfr -lgmp
+# add glpk and nauty
+LIBS=-lntl -lpari -lgsl -lgslcblas -lintl -lnauty -lglpk -ldl -lpng -lmpfr -lgmp
+# disabling ntl - factor crash on some computer?
+# (yes: if NTL is built without TUNE generic on a core i7=> crash on i3)
+# NB: f=(x+y+z+1)**30+1 ; g=(f*(f+1)).normal() lose 0.5s over 5s without ntl. 
+#LIBS=-lpari -lgsl -lgslcblas -lintl -ldl -lpng -lmpfr -lgmp
+LIBPATH=-L/usr/x86_64-w64-mingw32/sys-root/mingw/bin -L/home/fred/dev/win64/bin -L/home/fred/dev/win64/lib
+#
+#1.4.9#OBJECTS=input_lexer.o sym2poly.o gausspol.o threaded.o moyal.o maple.o ti89.o mathml.o misc.o permu.o quater.o desolve.o input_parser.o symbolic.o index.o modpoly.o modfactor.o ezgcd.o derive.o solve.o intg.o intgab.o risch.o lin.o series.o subst.o vecteur.o sparse.o csturm.o tex.o global.o ifactor.o alg_ext.o gauss.o isom.o plot.o plot3d.o rpn.o prog.o pari.o cocoa.o unary.o usual.o identificateur.o gen.o tinymt32.o first.o TmpLESystemSolver.o TmpFGLM.o help.o
+#1.5.0
+#OBJECTS=input_lexer.o sym2poly.o gausspol.o threaded.o moyal.o maple.o ti89.o mathml.o misc.o permu.o quater.o desolve.o input_parser.o symbolic.o index.o modpoly.o modfactor.o ezgcd.o derive.o solve.o intg.o intgab.o risch.o lin.o series.o subst.o vecteur.o sparse.o csturm.o tex.o global.o ifactor.o alg_ext.o gauss.o isom.o plot.o plot3d.o rpn.o prog.o pari.o cocoa.o unary.o usual.o identificateur.o gen.o tinymt32.o first.o TmpLESystemSolver.o TmpFGLM.o help.o lpsolve.o optimization.o signalprocessing.o graphe.o graphtheory.o nautywrapper.o markup.o kdisplay.o kadd.o
+#1.9.0
+OBJECTS=input_lexer.o sym2poly.o gausspol.o \
+	threaded.o moyal.o maple.o ti89.o mathml.o misc.o \
+	permu.o quater.o desolve.o input_parser.o symbolic.o \
+	index.o modpoly.o modfactor.o ezgcd.o derive.o solve.o \
+	intg.o intgab.o risch.o lin.o series.o subst.o \
+	vecteur.o sparse.o csturm.o tex.o global.o ifactor.o \
+	alg_ext.o gauss.o isom.o plot.o plot3d.o rpn.o prog.o \
+	pari.o cocoa.o unary.o usual.o identificateur.o gen.o \
+	tinymt32.o first.o TmpLESystemSolver.o TmpFGLM.o help.o \
+	lpsolve.o optimization.o signalprocessing.o graphe.o \
+	graphtheory.o nautywrapper.o markup.o kdisplay.o kadd.o \
+	caseval.o cutils.o graphic.o libbf.o libregexp.o \
+	libunicode.o qjsgiac.o quickjs.o quickjs-libc.o js.o
+#
+subsystem:
+	# ensure that the giac objects are built (from the giac Makefile)
+	make
+#
+giac.dll:	subsystem
+	$(CXX) -fstack-protector-strong -s -shared -Wl,--output-def,giac.def -Wl,--out-implib,libgiac.dll.a -Wl,--add-stdcall-alias  -Wl,-Bsymbolic-functions -g $(OBJECTS) $(LIBPATH) $(LIBS) -ogiac.dll
+
+icas-dyn.exe:      giac.dll
+	$(CXX) -DGIAC_NO_OPTIMIZATIONS -D__MINGW_H -DGIAC_MPQS -D_GLIBCXX_USE_CXX11_ABI=0 -fno-strict-aliasing -DGIAC_GENERIC_CONSTANTS -o icas-dyn.exe icas.o  -L./ $(LIBPATH) ./.libs/libxcas.a -lgiac -lntl -lpari -lz -lreadline -lgsl -lgslcblas -lintl -lpthread -lpng -lmpfr -lgmp
+
+install:       giac.dll icas-dyn.exe
+	cp -pf giac.dll giac.def icas-dyn.exe $(DESTDIR)bin/
+	cp -pf libgiac.dll.a $(DESTDIR)lib/
+
+clean:
+	rm -f giac.dll giac.def icas-dyn.exe libgiac.dll.a
+
+check:	install
+	echo "#!/bin/sh" >icas
+	echo "# pour le make check avec wine mettre ce fichier ds le src" >>icas
+	echo "wine /home/fred/dev/win64/bin/icas-dyn.exe \$$@ | dos2unix" >>icas
+	chmod +x icas
+	(cd ../check && make check)
+
+patchgiac:
+	#doctest files
+	patch -p1 <nofltk-check.patch -d$(GIACBASEDIR)giac-$(GIACVERSION)
+	#solved with giac-1.5.0-49 patch -p0 <patch-win-e-check.diff -d$(GIACBASEDIR)giac-$(GIACVERSION)
+	#icas.exe
+	patch -p0 <patch-mingw-icas.diff -d$(GIACBASEDIR)giac-$(GIACVERSION)
+	#win64:
+	patch -p0 <patch-win64-pari+mmult_int.diff -d$(GIACBASEDIR)giac-$(GIACVERSION)
+	# bugfix 1.2.3-57:
+	#patch -p0 <patch-rowreduction-r55929.diff -d$(GIACBASEDIR)giac-$(GIACVERSION)
+	#patch -p0 <patch-subsop.diff -d$(GIACBASEDIR)giac-$(GIACVERSION)
+	#patch -p0 <patch-bugminus-sparse.diff -d$(GIACBASEDIR)giac-$(GIACVERSION)

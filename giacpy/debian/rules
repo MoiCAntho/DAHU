@@ -1,0 +1,56 @@
+#!/usr/bin/make -f
+
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/buildflags.mk
+include /usr/share/python/python.mk
+
+DEFAULTPYTHON=$(shell pyversions -d)
+PYVERS=$(shell pyversions -i)
+PY3VERS=$(shell py3versions -i)
+
+override_dh_auto_clean:
+	dh_auto_clean
+	(cd qcas && make clean && rm -f libqcas.a && cd ..)
+	rm -rf build/
+
+override_dh_auto_build:
+	(cd qcas && qmake libqcas.pro && make && cd ..)
+	for pyvers in $(PYVERS) $(PY3VERS); do \
+	    $$pyvers setup.py build --enable-qcas; \
+	done
+
+run-installpython2%:
+	python2$* setup.py install --install-layout=deb --root $(CURDIR)/$(call py_pkgname,debian/python-giacpy,$*)
+	dh_movefiles --sourcedir=debian/python-giacpy
+
+run-installpython3%:
+	python3$* setup.py install --install-layout=deb --root $(CURDIR)/$(call py_pkgname,debian/python3-giacpy,$*)
+	dh_movefiles --sourcedir=debian/python3-giacpy
+
+override_dh_auto_install: $(PYVERS:%=run-install%) $(PY3VERS:%=run-install%)
+
+override_dh_python2:
+	dh_python2 -ppython-giacpy
+
+override_dh_python3:
+	dh_python3 -ppython3-giacpy
+
+run-test%:
+ifeq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
+		set -e -x; \
+		# move to debian dir to avoid import conflict
+		cd $(CURDIR)/debian; \
+		PYTHONPATH=$(CURDIR)/$(call py_builddir, $(shell echo $*)) $* -m doctest -v ../giacpy/giacpy.pyx
+endif
+
+
+override_dh_auto_test: $(PYVERS:%=run-test%) $(PY3VERS:%=run-test%)
+
+#%:
+#	dh --with python2,python3 $@ --buildsystem=python_distutils
+
+
+PYBUILD_NAME=giacpy
+
+%:
+	dh --with python2,python3 $@ --buildsystem=pybuild

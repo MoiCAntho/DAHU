@@ -1,0 +1,17 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: giacpy
+Upstream-Contact: Frederic Han <han@math.jussieu.fr>
+Source: http://www.math.jussieu.fr/~han/xcas/giacpy
+
+Files: *
+Copyright: 2012,  Frederic Han <han@math.jussieu.fr>
+License: GPL-2+
+ This program is free software ; you can redistribute it
+ [...]
+ .
+ On Debian systems , the full text of the GNU General Public
+ License version 2 can be found in the file
+ ‘/ usr / share / common - licenses / GPL -2 ’.
+
+
+

@@ -1,0 +1,46 @@
+--- src/icas.cc.orig	2019-11-11 20:00:25.000000000 +0100
++++ src/icas.cc	2020-02-05 12:34:16.709052378 +0100
+@@ -1579,7 +1579,7 @@
+     int taillemax=1000;
+     if (getenv("GIAC_TAILLEMAX"))
+       taillemax=atoi(getenv("GIAC_TAILLEMAX"));
+-    struct tms start, end;  
++    //fred    struct tms start, end;  
+     using_history();
+     cout << "Welcome to giac readline interface" << '\n';
+     cout << "(c) 2001,2018 B. Parisse & others" << '\n';
+@@ -1641,12 +1641,12 @@
+ #ifdef __APPLE__
+       unsigned startc=clock();
+ #endif
+-      times(&start);
++      //times(&start);
+       xcas::icas_eval(gq,ge,reading_file,filename,contextptr);
+ #ifdef __APPLE_
+       startc=clock()-startc;
+ #endif
+-      times(&end);
++      //times(&end);
+       giac::history_in(contextptr).push_back(gq);
+       giac::history_out(contextptr).push_back(ge);
+       // 2-d plot?
+@@ -1669,7 +1669,7 @@
+ #ifdef __APPLE__
+ 	cerr << "// dclock1 " << double(startc)/CLOCKS_PER_SEC << '\n';
+ #endif
+-	cerr << "// Time " << giac::delta_tms(start,end) << '\n';
++	//cerr << "// Time " << giac::delta_tms(start,end) << '\n';
+       }
+ #ifdef HAVE_EQASCII
+       struct Tgraph *graph=(Tgraph *)malloc(sizeof(struct Tgraph));
+@@ -1742,8 +1742,8 @@
+   gettimeofday(&tt,0);
+   giac::gen et((int) tt.tv_sec);
+   string st(et.print(contextptr));
+-  struct tms start, end,f1,f2;  
+-  times(&start);
++  //struct tms start, end,f1,f2;  
++  //times(&start);
+   f2=start;
+ #endif
+   //xcas_mode(contextptr)=1;
