@@ -19,15 +19,14 @@ description = "A Cython frontend to the c++ library giac. (Computer Algebra Syst
 category = "main"
 optional = false
 python-versions = "*"
-files = [
-    {file = "giacpy-0.7.3-cp27-cp27m-win_amd64.whl", hash = "sha256:abd0dc90269ae62b960253b2c5268a1ac22b7780c86b91925bc26ac79848bfc3"},
-    {file = "giacpy-0.7.3-cp311-cp311-win_amd64.whl", hash = "sha256:1f0be86696e92db2bb9479ffcc597e54e2c5971d586ca0bb822c664f5a5940cd"},
-    {file = "giacpy-0.7.3-cp34-cp34m-win_amd64.whl", hash = "sha256:9a9d49cd5e5a5b2c1bd54f5248c7ccf6a3e5162094d0f7f79fe410470cfa87ef"},
-    {file = "giacpy-0.7.3-cp36-cp36m-win_amd64.whl", hash = "sha256:3faeca219dcc5c190edb55a39f9e81a097aa0eb9d38f67b848dcf994ae570de2"},
-    {file = "giacpy-0.7.3-cp37-cp37m-win_amd64.whl", hash = "sha256:14930a06a37aeb904b008bcdcabd08deb3bebd0488843ef93767376f2f7542fc"},
-    {file = "giacpy-0.7.3-cp38-cp38-win_amd64.whl", hash = "sha256:82ecd4538d27486ea6c96b6f5a26fbf735b497c3a0051e13ae19620ce95afa05"},
-    {file = "giacpy-0.7.3.tar.gz", hash = "sha256:034029d5f6b51a1e7b5bcf6af44d844c62eebce6e5f931cd7ab3e897c77808ca"},
-]
+files = []
+develop = false
+
+[package.source]
+type = "git"
+url = "https://gitlab.math.univ-paris-diderot.fr/han/giacpy"
+reference = "HEAD"
+resolved_reference = "f3662b1899c3b295dc826a90997303cb0837cd99"
 
 [[package]]
 name = "wheel"
@@ -47,4 +46,4 @@ test = ["pytest (>=6.0.0)", "setuptools (>=65)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.7"
-content-hash = "7ba295ffb023b296bcb48ea3ba8a0b7c305f65d2041916d14f6e48aa63683161"
+content-hash = "bb15915395e5f1037fa1760990a9ddf3c706b781170840b10fcaa8acc3bd5210"
