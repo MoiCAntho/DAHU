@@ -1,10 +1,5 @@
 from setuptools import setup,find_packages
 
-#A finir
-
-with open('requirements.txt') as f:
-    requirements = f.read().splitlines()
-
 
 setup(
     name = "DAHU",
@@ -12,7 +7,9 @@ setup(
     author = "Virgile Cheminot, Anthony Louvat-Segura",
     url = "https://github.com/MoiCAntho/DAHU",
     packages = find_packages(),
-    install_requires = requirements.append("git+https://gitlab.math.univ-paris-diderot.fr/han/giacpy@master"),
+    install_requires = ["wheel>=0.41.2",
+                        "cython>=3.0.4",
+                        "git+https://gitlab.math.univ-paris-diderot.fr/han/giacpy@master"]
     description="Package de calcul formel (pour l'instant ;=) )",
     license="MIT",
     python_requires = ">=3.8",
