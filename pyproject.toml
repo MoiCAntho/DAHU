@@ -6,7 +6,7 @@ authors = ["LOUVAT SEGURA Anthony","CHEMINOT Virgile"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/MoiCAntho/DAHU"
-packages = [
+packages = [ 
     {include = "DAHU"},]
 
 [tool.poetry.dependencies]
@@ -18,9 +18,6 @@ giacpy = "^0.7.3"
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/MoiCAntho/DAHU/issues"
 
-#[build-system]
-#requires = ["poetry-core"]
-#build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.dev-dependencies]
-giacpy = { git = "https://gitlab.math.univ-paris-diderot.fr/han/giacpy" }
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
