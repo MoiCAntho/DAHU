@@ -12,7 +12,7 @@ setup(
     author = "Virgile Cheminot, Anthony Louvat-Segura",
     url = "https://github.com/MoiCAntho/DAHU",
     packages = find_packages(),
-    install_requires = requirements,
+    install_requires = requirements.append("git+https://gitlab.math.univ-paris-diderot.fr/han/giacpy@master"),
     description="Package de calcul formel (pour l'instant ;=) )",
     license="MIT",
     python_requires = ">=3.8",
