@@ -7,8 +7,8 @@ with open('requirements.txt') as f:
 
 
 setup(
-    name = "DAHU12",
-    version = "0.0.0.0.1",
+    name = "DAHU",
+    version = "0.0.0.0.2.3",
     author = "Virgile Cheminot, Anthony Louvat-Segura",
     url = "https://github.com/MoiCAntho/DAHU",
     packages = find_packages(),

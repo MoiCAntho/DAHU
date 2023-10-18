@@ -1,0 +1,3 @@
+wheel>=0.41.2
+cython>=3.0.4
+giacpy>=0.7.3
