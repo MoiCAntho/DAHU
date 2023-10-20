@@ -17,6 +17,7 @@ import giacpy
 
 ## Import des autres packages
 
+
 import random
 import copy
 import math
