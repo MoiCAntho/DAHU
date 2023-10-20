@@ -4,7 +4,7 @@ import setuptools_scm
 
 setup(
     name = "DAHU",
-    version = "0.0.0.0.2.3",
+    version = "0.0.0.0.2.4",
     author = "Virgile Cheminot, Anthony Louvat-Segura",
     url = "https://github.com/MoiCAntho/DAHU",
     packages = find_packages(),
