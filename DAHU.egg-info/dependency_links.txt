@@ -1,0 +1,1 @@
+git+https://gitlab.math.univ-paris-diderot.fr/han/giacpy@master
